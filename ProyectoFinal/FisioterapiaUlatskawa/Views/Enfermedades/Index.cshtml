@@ -1,0 +1,75 @@
+﻿
+@model IEnumerable<FisioterapiaUlatskawa.Models.EnfermedadesViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="margin-bottom: 10px">
+    <h2>Enfermedades</h2>
+</div>
+
+
+<a href="@Url.Action("Create", "Enfermedades")" class="btn btn-primary btn-full float-right mt-sm-3 mb-5" style="margin-bottom: 10px;">
+    <i class="fa fa-plus-circle"></i> Nuevo
+</a>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombreEnfermedad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cedula)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreEnfermedad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cedula)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.idEnfermedad }) |
+                @Html.ActionLink("Details", "Details", new { id = item.idEnfermedad }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.idEnfermedad })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<script src="~/Scripts/Alerts.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        var data = '@TempData["ErrorMessage"]';
+
+        if (data === "") {
+            console.log("Empty string")
+        } else {
+            ErrorShowMessage(data);
+        }
+
+        var message = '@TempData["Message"]';
+
+        console.log(message);
+
+        if (message === "" || message == "") {
+            console.log("Empty string")
+        } else {
+            SuccessShowMessage(message);
+        }
+    });
+
+
+</script>
+

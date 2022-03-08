@@ -1,0 +1,190 @@
+﻿@model FisioterapiaUlatskawa.Models.AntecedentesViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Añadir Antecedente</h2>
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<!-- Custom fonts for this template -->
+<link href="~/Tema/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="~/Tema/css/sb-admin-2.min.css" rel="stylesheet">
+
+<!-- Custom styles for this page -->
+<link href="~/Tema/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
+
+<div style="margin-bottom:2%">
+
+    <a href="@Url.Action("Index", "Antecedentes", new {pCedula = @Session["pCedula"] as string })" class="btn btn-danger btn-full ">
+        <i class="fa fa-arrow-alt-circle-left"></i> Atrás
+    </a>
+</div>
+
+@*<a href="~/Views/Antecedentes/Create.cshtml">~/Views/Antecedentes/Create.cshtml</a>*@
+
+
+<body class="container-fluid">
+
+
+    <form method="post" class="form-inline">
+
+        <div>
+            @Html.HiddenFor(model => model.cedula)
+            <input type="text" name="nombreAntecedente" placeholder="Antecedencia" class="form-control" </input>
+            <button class="btn btn-info" type="button" id="btn-Add" onclick="Guardar()">Añadir</button>
+        </div>
+
+    </form>
+    <hr>
+    <div class="clearfix"> </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Antecedente Clínico</th>
+                            <th>Eliminar Antecedente</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @*<table class="table" id="tableDetails">
+            <thead>
+                <tr>
+                    <th>Antecedente Clínico</th>
+                    <th>Eliminar Antecedente</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+
+        </table>*@
+
+    <script>
+        $(function () {
+
+            var button = '<input type="button" value="Eliminar" id="elimina" class="btn btn-danger" name="Eliminar"/>';
+
+            $('#btn-Add').click(function () {
+
+                var _nombre = $('input[name="nombreAntecedente"]').val();
+
+                var _tr = '<tr><td class="TableNombre">' + _nombre + '</td>  <td>' + button + '</td></tr>';
+
+                $('tbody').append(_tr);
+
+
+            });
+
+            $(document).on('click','#elimina', function () {
+
+
+                $(this).closest('tr').remove();
+
+
+            });
+
+        });
+
+        function Guardar() {
+
+          /*  console.log("ENTREEEE");*/
+
+                    var antecedentesVM = {};
+                    antecedentesVM.cedula = $("#cedula").val().trim();
+
+
+
+
+                    var Detalles = new Array();
+                    $("#dataTable tbody tr").each(function () {
+                        //validar si l a ultima columna es vacia para que no se inserte
+                        var row = $(this);
+                        var detail = {};
+
+                        detail.nombreAntecedente = row.find(".TableNombre").text().replaceAll();
+
+                        Detalles.push(detail);
+
+                    });
+
+                    //llenar mi lista de detalles a mi objeto principal
+                    antecedentesVM.Detalles = Detalles;
+
+
+                    //Validar que si vengan detalles, no podemos crear un movimiento que no tenga detalles.
+                    if (Detalles.length > 0) {
+
+                        var dirUrl = "@Url.Action("Create", "Antecedentes")";
+                        // url: "/Home/Compras",
+
+                        $.ajax({
+                            type: "POST",
+                            url: dirUrl,
+                            data: JSON.stringify(antecedentesVM),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response, textStatus, xhr) {
+
+                                //console.log(response[0].data);
+
+                                if (response[0].statusCode == 200) {
+                                    window.location.href = response[0].data;
+                                } else if (response[0].statusCode == 99) {
+
+
+                                    // mostrar el error
+                                    alert(response[0].data);
+                                }
+                            },
+                            error: function (response, textStatus, xhr) {
+
+                                alert(response);
+                            }
+                        });
+                    }
+
+
+        }
+
+
+    </script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Tema/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Tema/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Tema/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Tema/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/Tema/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Tema/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Tema/js/demo/datatables-demo.js"></script>
+
+</body>
+

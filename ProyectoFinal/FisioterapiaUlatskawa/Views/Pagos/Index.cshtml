@@ -1,0 +1,132 @@
+﻿@model IEnumerable<FisioterapiaUlatskawa.Models.PagosViewModel>
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<html>
+
+<div style="margin-bottom: 10px">
+    <h2>Lista Pagos</h2>
+</div>
+
+<body>
+    <div style="margin-top: 10px">
+        <a href="@Url.Action("Create", "Pagos")" class="btn btn-primary btn-full  mt-sm-3">
+            <i class="fa fa-plus-circle"></i> Nuevo
+        </a>
+    </div>
+    <hr />
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.nombrePago)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.monto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.banco)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cedula)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.fechaPago)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.notas)
+                            </th>
+                            <th>op</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nombrePago)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.monto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.banco)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cedula)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fechaPago)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.notas)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "Pagos", new {
+                            pIdPago = item.idPago })"
+                                       class="btn btn-info btn-sm btn-full" title="Editar">
+                                        Editar
+                                    </a>
+                                    |
+                                    <a href="@Url.Action("Details", "Pagos", new {
+                            pIdPago = item.idPago})"
+                                       class="btn btn-danger btn-sm btn-full" title="Detalles">
+                                        Detalles
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Tema/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Tema/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Tema/js/demo/datatables-demo.js"></script>
+
+
+
+
+</body>
+</html>
+
+    @*<script src="~/Scripts/Alerts.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        var data = '@TempData["ErrorMessage"]';
+
+        if (data === "") {
+            console.log("Empty string")
+        } else {
+            ErrorShowMessage(data);
+        }
+
+        var message = '@TempData["Message"]';
+
+        console.log(message);
+
+        if (message === "" || message == "") {
+            console.log("Empty string")
+        } else {
+            SuccessShowMessage(message);
+        }
+    });
+
+
+    </script>*@

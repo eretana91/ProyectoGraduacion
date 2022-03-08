@@ -1,0 +1,143 @@
+﻿@model FisioterapiaUlatskawa.Models.EnfermedadesViewModel
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+<h2>Añadir Enfermedad</h2>
+
+
+
+
+<a href="@Url.Action("Index", "Enfermedades", new {pCedula = @Session["pCedula"] as string })" class="btn btn-danger btn-full float-right">
+    <i class="fa fa-arrow-alt-circle-left" style="margin-bottom: 2%"></i> Atrás
+</a>
+
+@*<a href="~/Views/Enfermedades/Create.cshtml">~/Views/Enfermedades/Create.cshtml</a>*@
+
+
+
+
+
+
+<div>
+    @Html.HiddenFor(model => model.cedula)
+    <input type="text" name="nombreEnfermedad" placeholder="Nombre de la Enfermedad" class="form-control" </input>
+    <button class="btn btn-info" type="button" id="btn-Add">Añadir</button>
+</div>
+
+
+<hr>
+<div class="clearfix"> </div>
+
+<table class="table" id="tableDetails">
+    <thead>
+        <tr>
+            <th>Nombre de la Enfermedad</th>
+            <th>Eliminar Enfermedad</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    </tbody>
+
+</table>
+<button class="btn btn-info" type="button" id="btn-Add" onclick="Guardar()">Añadir</button>
+
+
+
+<script type="text/javascript" async="async">
+
+    $(function () {
+
+        var button = '<input type="button" value="Eliminar" id="elimina" class="btn btn-danger" name="Eliminar"/>';
+
+
+        $('#btn-Add').click(function () {
+
+            var _nombre = $('input[name="nombreEnfermedad"]').val();
+
+            var _tr = '<tr><td class="TableNombre">' + _nombre + '</td>  <td>' + button + '</td></tr>';
+
+            $('tbody').append(_tr);
+
+
+        });
+
+        $(document).on('click', '#elimina', function () {
+
+            $(this).closest('tr').remove();
+
+        });
+
+
+
+
+
+
+
+    });
+        function Guardar() {
+
+            console.log("ENTREEEE");
+
+                    var enfermedadesVM = {};
+                    enfermedadesVM.cedula = $("#cedula").val().trim();
+
+
+
+
+                    var Detalles = new Array();
+                    $("#tableDetails tbody tr").each(function () {
+                        //validar si l a ultima columna es vacia para que no se inserte
+                        var row = $(this);
+                        var detail = {};
+
+                        detail.nombreEnfermedad = row.find(".TableNombre").text().replaceAll();
+
+                        Detalles.push(detail);
+
+                    });
+
+                    //llenar mi lista de detalles a mi objeto principal
+                    enfermedadesVM.Detalles = Detalles;
+
+
+                    //Validar que si vengan detalles, no podemos crear un movimiento que no tenga detalles.
+                    if (Detalles.length > 0) {
+
+                        var dirUrl = "@Url.Action("Create", "Enfermedades")";
+                        // url: "/Home/Compras",
+
+                        $.ajax({
+                            type: "POST",
+                            url: dirUrl,
+                            data: JSON.stringify(enfermedadesVM),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response, textStatus, xhr) {
+
+                                //console.log(response[0].data);
+
+                                if (response[0].statusCode == 200) {
+                                    window.location.href = response[0].data;
+                                } else if (response[0].statusCode == 99) {
+
+
+                                    // mostrar el error
+                                    alert(response[0].data);
+                                }
+                            },
+                            error: function (response, textStatus, xhr) {
+
+                                alert(response);
+                            }
+                        });
+                    }
+
+
+        }
+
+        $(document).ready(function () {
+
+
+        });
+</script>

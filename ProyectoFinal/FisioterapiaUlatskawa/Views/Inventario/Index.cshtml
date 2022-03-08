@@ -1,0 +1,104 @@
+﻿@model IEnumerable<FisioterapiaUlatskawa.Models.InventariosViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Listado Productos</h2>
+<a href="@Url.Action("Create", "Inventario")" class="btn btn-primary btn-full  mt-sm-3">
+    <i class="fa fa-plus-circle"></i> Nuevo
+</a>
+
+<hr />
+<div class="card shadow mb-4">
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.tipoProducto)
+                        </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.nombreProducto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.codigoBarras)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.precio)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cantidad)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.fechaExpiracion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.notas)
+                        </th>
+
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @*<td>
+                                @Html.DisplayFor(modelItem => item.tipoProducto)
+                            </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombreProducto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.codigoBarras)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.precio)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.cantidad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fechaExpiracion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.notas)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Edit", "Edit", new { pCodigoBarras = item.codigoBarras })*@
+
+                                <a href="@Url.Action("Edit", "Inventario", new {
+                            pCodigoBarras =item.codigoBarras.ToString()})"
+                                   class="btn btn-primary btn-sm btn-full" title="Editar">
+                                    Editar
+                                </a>
+                                @*@Html.ActionLink("Details", "Details", new { pCodigoBarras = item.codigoBarras }) |
+        @Html.ActionLink("Delete", "Delete", new { pCodigoBarras = item.codigoBarras })*@
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="~/Tema/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Tema/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/Tema/js/demo/datatables-demo.js"></script>
+
+
+

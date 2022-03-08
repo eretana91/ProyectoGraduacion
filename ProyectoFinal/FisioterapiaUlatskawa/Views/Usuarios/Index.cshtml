@@ -1,0 +1,178 @@
+﻿@model IEnumerable<FisioterapiaUlatskawa.Models.UsuariosViewModel>
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+
+
+<div style="margin-bottom: 10px">
+    <h2>Usuarios</h2>
+</div>
+
+<div style="margin-top: 10px">
+    <a href="@Url.Action("Create", "Usuarios")" class="btn btn-primary btn-full  mt-sm-3">
+        <i class="fa fa-plus-circle"></i> Nuevo
+    </a>
+</div>
+<hr />
+<div class="card shadow mb-4" style="margin-bottom:10px">
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.apellidos)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.telefono)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.email)
+                        </th>
+                       
+                        <th>OP</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    
+
+                        @foreach (var item in Model)
+                       {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apellidos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            
+            <td>
+
+                        
+                <a href="@Url.Action("Details", "Usuarios", new {
+                            pIdUsuario =item.cedula.ToString()})"
+                   class="btn btn-danger btn-sm btn-full" title="Detalles">
+                    Detalles
+                </a>
+                |
+                <a href="@Url.Action("Index", "Pagos", new {
+                            pCedula =item.cedula.ToString()})"
+                   class="btn btn-success btn-sm btn-full" title="Pagos">
+                    Pagos
+                </a>
+                |
+                <a href="@Url.Action("Create", "Enfermedades", new {
+                            pCedula =item.cedula.ToString()})"
+                   class="btn btn-primary btn-sm btn-full" title="Enfermedad">
+                    Enfermedad
+                </a>
+
+            </td>
+        </tr>}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="~/Tema/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Tema/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Tema/js/demo/datatables-demo.js"></script>
+
+
+    <script src="~/Scripts/Alerts.js"></script>
+
+    <script type="text/javascript">
+
+
+
+    @*Page level custom scripts*@
+
+
+
+    $(document).ready(function () {
+
+    var successOptions = {
+    icon: 'flaticon-alarm-1',
+    title: 'Alerta',
+    autoHideDelay: 2000,
+    showAnimation: "fadeIn",
+    hideAnimation: "fadeOut",
+    hideDuration: 5000,
+    arrowShow: false,
+    className: "success",
+    type: "danger",
+    allow_dismiss: true,
+    };
+
+
+    var DangerOptions = {
+    icon: 'flaticon-alarm-1',
+    title: 'Alerta',
+    autoHideDelay: 2000,
+    showAnimation: "fadeIn",
+    hideAnimation: "fadeOut",
+    hideDuration: 5000,
+    arrowShow: false,
+    className: "danger",
+    type: "danger",
+    allow_dismiss: true,
+
+    };
+
+
+    var data = '@TempData["ErrorMessage"]';
+
+    if (data === "") {
+    console.log("Empty string")
+    } else {
+
+    $.notify(data, {
+    align: "center",
+    verticalAlign: "top",
+    deleay: 2000,
+    animationType: "drop",
+    color: "#fff",
+    background: "#20D67B"
+    });
+    }
+
+    console.log(data);
+
+    var message = '@TempData["Message"]';
+
+    console.log(message);
+
+    if (message === "" || message == "") {
+    console.log("Empty string")
+    } else {
+    //SuccessShowMessage(message);
+    $.notify(message, {
+    align: "center",
+    verticalAlign: "top",
+    deleay: 2000,
+    animationType: "drop",
+    color: "#fff",
+    background: "#20D67B"
+    });
+    }
+    });
+
+
+    </script>
