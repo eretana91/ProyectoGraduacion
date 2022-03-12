@@ -2206,6 +2206,7 @@
     <Content Include="Tema\vendor\jquery\jquery.min.map" />
     <Content Include="Tema\vendor\jquery\jquery.slim.min.map" />
     <Content Include="Views\Biblioteca\Index.cshtml" />
+    <Content Include="Views\Biblioteca\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
