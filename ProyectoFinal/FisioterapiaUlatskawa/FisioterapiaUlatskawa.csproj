@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AntecedentesController.cs" />
+    <Compile Include="Controllers\BibliotecaController.cs" />
     <Compile Include="Controllers\EnfermedadesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventarioController.cs" />
@@ -214,6 +215,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AntecedentesViewModel.cs" />
+    <Compile Include="Models\BibliotecaViewModel.cs" />
     <Compile Include="Models\EnfermedadesViewModel.cs" />
     <Compile Include="Models\InventariosViewModel.cs" />
     <Compile Include="Models\PagosViewModel.cs" />
@@ -2203,6 +2205,7 @@
     <Content Include="Tema\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Tema\vendor\jquery\jquery.min.map" />
     <Content Include="Tema\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Views\Biblioteca\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

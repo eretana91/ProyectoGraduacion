@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<FisioterapiaUlatskawa.Models.PagosViewModel>
 
-@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+@{Layout = "~/Views/Shared/_Layout.cshtml";}
 
 <html>
 
@@ -10,7 +10,7 @@
 
 <body>
     <div style="margin-top: 10px">
-        <a href="@Url.Action("Create", "Pagos")" class="btn btn-primary btn-full  mt-sm-3">
+        <a href="@Url.Action("Create", "Pagos", new {pCedula = Session["MiCedula"] as string })" class="btn btn-primary btn-full  mt-sm-3">
             <i class="fa fa-plus-circle"></i> Nuevo
         </a>
     </div>

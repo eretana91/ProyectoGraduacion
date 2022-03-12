@@ -234,7 +234,7 @@ namespace FisioterapiaUlatskawa.Controllers
         // POST: Clases/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = " id,Producto, tipoProducto,nombreProducto,codigoBarras,precio,cantidad,fechaExpiracion,notas")] InventariosViewModel inventariosVM)
+        public ActionResult Edit([Bind(Include = "idProducto,Producto, tipoProducto,nombreProducto,codigoBarras,precio,cantidad,fechaExpiracion,notas")] InventariosViewModel inventariosVM)
         {
             if (ModelState.IsValid)
             {

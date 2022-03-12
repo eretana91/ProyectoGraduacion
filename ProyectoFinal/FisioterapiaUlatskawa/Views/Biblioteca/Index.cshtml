@@ -1,0 +1,93 @@
+﻿@model List<FisioterapiaUlatskawa.Models.BibliotecaViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@*<table class="table">
+
+
+        @foreach (var item in Model)
+        {
+
+            <div class="col-6 col-sm-3">
+
+                <div>@item.titulo</div>
+                <iframe width="300" height="300" src="https://www.youtube.com/embed/5MQGiXgdGYk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div>@item.descripcion</div>
+            </div>
+
+        }
+    </table>*@
+
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Título
+                        </th>
+                        <th>
+                           Descripción
+                        </th>
+                        <th>
+                            Video
+                        </th>
+                        <th>
+                            Acción
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.titulo
+                            </td>
+                            <td>
+                                @item.descripcion
+                            </td>
+                            <td>
+                                <iframe width="140" height="120" src="https://www.youtube.com/embed/5MQGiXgdGYk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </td>
+
+                            <td>
+                                <a href="@Url.Action("Edit", "Pagos")
+                                   class="btn btn-info btn-sm btn-full" title="Editar">
+                                    Editar
+                                </a>
+                                |
+                                <a href="@Url.Action("Details", "Pagos")
+                                   class="btn btn-danger btn-sm btn-full" title="Detalles">
+                                    Detalles
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Tema/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Tema/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/Tema/js/demo/datatables-demo.js"></script>

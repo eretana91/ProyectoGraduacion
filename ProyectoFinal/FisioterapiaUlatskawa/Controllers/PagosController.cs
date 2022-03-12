@@ -47,7 +47,7 @@ namespace FisioterapiaUlatskawa.Controllers
                     });
                 };
 
-
+                Session["MiCedula"] = pCedula;
 
                 return View(ListPagos);
             }
