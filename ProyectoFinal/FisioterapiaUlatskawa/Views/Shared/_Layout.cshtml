@@ -32,7 +32,39 @@
 
 </head>
 <body id="page-top">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a href="@Url.Action(controllerName: "home",actionName: "index" )" class="nav-link text-dark" style="margin-bottom:12px;">
+                    <i class="fa fa-medkit"></i> ULATSKAWA
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a href="@Url.Action(controllerName: "usuarios",actionName: "index" )" class="nav-link text-dark" style="margin-bottom:12px;">
+                                <i class="fa fa-user"></i> Usuarios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action(controllerName: "Inventario",actionName: "index" )" class="nav-link text-dark" style="margin-bottom:12px;">
+                                <i class="fa fa-box"></i> Inventario
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action(controllerName: "Pagos",actionName: "index" )" class="nav-link text-dark" style="margin-bottom:12px;">
+                                <i class="fa fa-university"></i> Pagos
+                            </a>
+                        </li>
 
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -40,103 +72,125 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action(controllerName: "home",actionName: "index" )">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fa fa-medkit"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Ulatskawa</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
+            <!-- Nav Item - Dashboard comentado porque no tendremos Dashboard -->
+            <!--
+    <li class="nav-item active">
+    <a class="nav-link" href="index.html">
+    <i class="fas fa-fw fa-tachometer-alt"></i>
+    <span>Dashboard</span>
+    </a>
+    </li>
+    -->
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsuarios"
+                   aria-expanded="true" aria-controls="collapseUsuarios">
+                    <i class="fa fa-user"></i>
+                    <span>Usuarios</span>
                 </a>
+                <div id="collapseUsuarios" class="collapse" aria-labelledby="headingUsuarios" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones de Usuarios:</h6>
+                        <a class="collapse-item" href="@Url.Action(controllerName: "usuarios",actionName: "create" )" style="margin-bottom:12px;">
+                            <i class="fa fa-plus-square" style="padding-right:5px"></i>Crear
+                        </a>
+                        <a class="collapse-item" href="@Url.Action(controllerName: "usuarios",actionName: "details" )" style="margin-bottom:12px;">
+                            <i class="fa fa-th-list" style="padding-right:5px"></i>Detalles
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Inventario Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInventario"
+                   aria-expanded="true" aria-controls="collapseInventario">
+                    <i class="fa fa-box"></i>
+                    <span>Inventario</span>
+                </a>
+                <div id="collapseInventario" class="collapse" aria-labelledby="headingInventario"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones de Inventario:</h6>
+                        <a class="collapse-item" href="@Url.Action(controllerName: "inventario",actionName: "create" )" style="margin-bottom:12px;">
+                            <i class="fa fa-plus-square" style="padding-right:5px"></i>Crear
+                        </a>
+                        <a class="collapse-item" href="@Url.Action(controllerName: "inventario",actionName: "details" )" style="margin-bottom:12px;">
+                            <i class="fa fa-th-list" style="padding-right:5px"></i>Detalles
+                        </a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                   aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Módulos</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagos"
+                   aria-expanded="true" aria-controls="collapsePagos">
+                    <i class="fa fa-university"></i>
+                    <span>Pagos</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapsePagos" class="collapse" aria-labelledby="headingPagos" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        @*<h6 class="collapse-header">Custom Components:</h6>*@
-                        @*<a class="collapse-item" href="~/Views/Usuarios/">Usuarios</a>*@
-                        <a href="@Url.Action("Index", "Usuarios")" class="collapse-item">
-                            Usuarios
+                        <h6 class="collapse-header">Opciones de Pagos:</h6>
+                        <a class="collapse-item" href="@Url.Action(controllerName: "pagos",actionName: "create" )" style="margin-bottom:12px;">
+                            <i class="fa fa-plus-square" style="padding-right:5px"></i>Crear
                         </a>
-                        <a href="@Url.Action("Index", "Inventario")" class="collapse-item">
-                            Inventarios
+                        <a class="collapse-item" href="@Url.Action(controllerName: "pagos",actionName: "index" )" style="margin-bottom:12px;">
+                            <i class="fa fa-th-list" style="padding-right:5px"></i>Detalles
                         </a>
+<<<<<<< HEAD
                         <a href="@Url.Action("Index", "Biblioteca")" class="collapse-item">
                             Biblioteca
                         </a>
 
+=======
+>>>>>>> dd550817c301805608736161b55e774ebc879c4a
                     </div>
                 </div>
             </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-            <!-- Nav Item - Utilities Collapse Menu
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-           aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
-            </div>
-        </div>
-    </li>-->
-            <!-- Divider
-    <hr class="sidebar-divider">
-
-    <!-- Heading 
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOtros"
+                   aria-expanded="true" aria-controls="collapseOtros">
+                    <i class="fa fa-folder-open"></i>
+                    <span>Otros ...</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseOtros" class="collapse" aria-labelledby="headingOtros" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <a class="collapse-item" href="@Url.Action(controllerName: "antecedentes",actionName: "index" )" style="margin-bottom:12px;">
+                            <i class="fa fa-history" style="padding-right:5px"></i>Antecedentes
+                        </a>
+                        <a class="collapse-item" href="@Url.Action(controllerName: "enfermedades",actionName: "index" )" style="margin-bottom:12px;">
+                            <i class="fa fa-stethoscope" style="padding-right:5px"></i>Enfermedades
+                        </a>
                     </div>
                 </div>
-            </li>-->
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -394,8 +448,8 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         @*<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>*@
                         @*<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-                            </a>*@
+                            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+                        </a>*@
                     </div>
 
                     <!-- Content Row -->
@@ -420,12 +474,12 @@
             <!-- End of Main Content -->
             <!-- Footer -->
             @*<footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2021</span>
-                        </div>
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
                     </div>
-                </footer>*@
+                </div>
+            </footer>*@
             <!-- End of Footer -->
 
         </div>
