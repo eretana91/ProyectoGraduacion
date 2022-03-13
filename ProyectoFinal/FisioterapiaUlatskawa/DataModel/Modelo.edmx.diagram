@@ -19,6 +19,8 @@
         <AssociationConnector Association="UlatskawaModel.FK__Pagos__cedula__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="UlatskawaModel.FK__Pagos__tipoPago__3B75D760" ManuallyRouted="false" />
         <AssociationConnector Association="UlatskawaModel.FK__Usuario__idTipoU__3C69FB99" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="UlatskawaModel.Biblioteca" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="UlatskawaModel.Paciente" Width="1.5" PointX="0.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
