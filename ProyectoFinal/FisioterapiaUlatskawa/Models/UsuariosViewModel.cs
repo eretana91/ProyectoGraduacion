@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -49,5 +50,9 @@ namespace FisioterapiaUlatskawa.Models
         public Nullable<int> idTipoUsuario { get; set; }
 
         public List<SelectListItem> ListaTipoUsuario { get; set; }
+
+        [NotMapped]
+        public string LoginErrorMessage { get; set; }
+
     }
 }
