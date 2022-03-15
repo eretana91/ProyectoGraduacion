@@ -34,6 +34,7 @@ namespace FisioterapiaUlatskawa.DataModel
         public virtual ICollection<Antecedente> Antecedentes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Enfermedade> Enfermedades { get; set; }
+        public virtual Expediente Expediente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pago> Pagos { get; set; }
         public virtual TipoUsuario TipoUsuario { get; set; }

@@ -12,24 +12,20 @@ namespace FisioterapiaUlatskawa.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Paciente
+    public partial class Expediente
     {
-        public string primerNombre { get; set; }
-        public string segundoNombre { get; set; }
-        public string primerApellido { get; set; }
-        public string segundoApellido { get; set; }
         public string cedula { get; set; }
         public Nullable<System.DateTime> fechaN { get; set; }
-        public Nullable<byte> telefono { get; set; }
         public string ciudad { get; set; }
         public string canton { get; set; }
         public string distrito { get; set; }
-        public string correo { get; set; }
         public string diagnostico { get; set; }
         public string antecedentes { get; set; }
         public string mediUtilizados { get; set; }
         public string anteQuirurgicos { get; set; }
         public string fracturas { get; set; }
         public string anteFamiliares { get; set; }
+    
+        public virtual Usuario Usuario { get; set; }
     }
 }

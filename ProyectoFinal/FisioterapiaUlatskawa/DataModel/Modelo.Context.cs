@@ -28,15 +28,16 @@ namespace FisioterapiaUlatskawa.DataModel
         }
     
         public virtual DbSet<Antecedente> Antecedentes { get; set; }
+        public virtual DbSet<Biblioteca> Bibliotecas { get; set; }
         public virtual DbSet<Enfermedade> Enfermedades { get; set; }
+        public virtual DbSet<Expediente> Expedientes { get; set; }
         public virtual DbSet<Inventario> Inventarios { get; set; }
         public virtual DbSet<Pago> Pagos { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TipoPago> TipoPagoes { get; set; }
         public virtual DbSet<TipoProducto> TipoProductoes { get; set; }
         public virtual DbSet<TipoUsuario> TipoUsuarios { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
-        public virtual DbSet<Biblioteca> Bibliotecas { get; set; }
-        public virtual DbSet<Paciente> Pacientes { get; set; }
     
         public virtual ObjectResult<string> ActualizarAntecedente(Nullable<int> pIdAntecedentes, string pNombreAntecedentes, string pCedula)
         {
