@@ -1,6 +1,6 @@
-﻿
-using FisioterapiaUlatskawa.DataModel;
+﻿using FisioterapiaUlatskawa.DataModel;
 using FisioterapiaUlatskawa.Models;
+using FisioterapiaUlatskawa.Tags;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +8,9 @@ using System.Web.Mvc;
 
 namespace FisioterapiaUlatskawa.Controllers
 {
-    //[Authorize]
-
+    
+    [Authorize]
+    [SessionExpireFilter]
     public class UsuariosController : Controller
     {
         private readonly Context context;
