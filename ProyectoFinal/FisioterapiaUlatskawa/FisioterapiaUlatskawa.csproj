@@ -157,6 +157,9 @@
     <Compile Include="DataModel\Enfermedade.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\Expediente.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\Inventario.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -198,9 +201,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel\paciente.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Pago.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
