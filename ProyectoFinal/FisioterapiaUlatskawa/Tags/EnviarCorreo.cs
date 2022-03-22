@@ -105,7 +105,7 @@ namespace FisioterapiaUlatskawa.Tags
             "<td>" +
             "<div style=\"font-family: sans-serif\">" +
             "<div style=\"font-size: 14px; mso-line-height-alt: 16.8px; color: #506bec; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\">" +
-            "<p style=\"margin: 0; font-size: 14px;\"><strong><span style=\"font-size:38px;\">Your New Password<br/></span></strong></p>" +
+            "<p style=\"margin: 0; font-size: 14px;\"><strong><span style=\"font-size:38px;\">Su Nueva Contraseña <br/></span></strong></p>" +
             "</div>" +
             "</div>" +
             "</td>" +
@@ -129,7 +129,7 @@ namespace FisioterapiaUlatskawa.Tags
             "<td>" +
             "<div style=\"font-family: sans-serif\">" +
             "<div style=\"font-size: 14px; mso-line-height-alt: 16.8px; color: #40507a; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\">" +
-            "<p style=\"margin: 0; font-size: 14px;\"><span style=\"font-size:16px;\">Hey, we received a request to reset your password.</span></p>" +
+            "<p style=\"margin: 0; font-size: 14px;\"><span style=\"font-size:16px;\">Hola, hemos recibido tu solicitud para cambiar tu contraseña.</span></p>" +
             "</div>" +
             "</div>" +
             "</td>" +
@@ -140,7 +140,7 @@ namespace FisioterapiaUlatskawa.Tags
             "<td>" +
             "<div style=\"font-family: sans-serif\">" +
             "<div style=\"font-size: 14px; mso-line-height-alt: 16.8px; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\">" +
-            "<p style=\"margin: 0; font-size: 14px;\"><span style=\"font-size:17px; color: #506bec;\">New Password: <strong>" + newPassword + "</strong></span></p>" +
+            "<p style=\"margin: 0; font-size: 14px;\"><span style=\"font-size:17px; color: #506bec;\">Nueva Contraseña: <strong>" + newPassword + "</strong></span></p>" +
             "</div>" +
             "</div>" +
             "</td>" +
@@ -151,7 +151,7 @@ namespace FisioterapiaUlatskawa.Tags
             "<td>" +
             "<div style=\"font-family: sans-serif\">" +
             "<div style=\"font-size: 14px; mso-line-height-alt: 16.8px; color: #40507a; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\">" +
-            "<p style=\"margin: 0; font-size: 14px;\"><span style=\"font-size:16px;\">Let’s get you a new one!</span></p>" +
+            "<p style=\"margin: 0; font-size: 14px;\"><span style=\"font-size:16px;\">Tenemos una lista para tí!</span></p>" +
             "</div>" +
             "</div>" +
             "</td>" +
@@ -216,7 +216,7 @@ namespace FisioterapiaUlatskawa.Tags
             "<div style=\"font-family: sans-serif\">" +
             "<div style=\"font-size: 14px; mso-line-height-alt: 16.8px; color: #97a2da; line-height: 1.2; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;\">" +
             "<p style=\"margin: 0; text-align: center; mso-line-height-alt: 16.8px;\"> </p>" +
-            "<p style=\"margin: 0; text-align: center;\">© All rights reserved Ulastkawa</p>" +
+            "<p style=\"margin: 0; text-align: center;\">© Todos los derechos reservados Ulastkawa</p>" +
             "</div>" +
             "</div>" +
             "</td>" +
