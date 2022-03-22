@@ -4,27 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Crear Video</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-@*<table class="table">
+<div style="margin-top: 10px">
+    <a href="@Url.Action("Create", "Biblioteca")" class="btn btn-primary btn-full  mt-sm-3">
+        <i class="fa fa-plus-circle"></i> Nuevo
+    </a>
+</div>
 
-
-        @foreach (var item in Model)
-        {
-
-            <div class="col-6 col-sm-3">
-
-                <div>@item.titulo</div>
-                <iframe width="300" height="300" src="https://www.youtube.com/embed/5MQGiXgdGYk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div>@item.descripcion</div>
-            </div>
-
-        }
-    </table>*@
-
+<hr />
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
