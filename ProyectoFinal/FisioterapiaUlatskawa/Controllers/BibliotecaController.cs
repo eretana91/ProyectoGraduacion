@@ -30,29 +30,29 @@ namespace FisioterapiaUlatskawa.Controllers
 
             listado.Add(new BibliotecaViewModel {
                 url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-                descripcion = "pRUEBA",
-                titulo = "FSADFSAD"
+                descripcion = "Prueba",
+                titulo = "Relajación de músculos"
             });
 
             listado.Add(new BibliotecaViewModel
             {
                 url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-                descripcion = "pRUEBA",
-                titulo = "FSADFSAD"
+                descripcion = "Prueba",
+                titulo = "Relajación de músculos"
             });
 
             listado.Add(new BibliotecaViewModel
             {
                 url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-                descripcion = "pRUEBA",
-                titulo = "FSADFSAD"
+                descripcion = "Prueba",
+                titulo = "Relajación de músculos"
             });
 
             listado.Add(new BibliotecaViewModel
             {
                 url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-                descripcion = "pRUEBA",
-                titulo = "FSADFSAD"
+                descripcion = "Prueba",
+                titulo = "Relajación de músculos"
             });
 
             return View(listado);
