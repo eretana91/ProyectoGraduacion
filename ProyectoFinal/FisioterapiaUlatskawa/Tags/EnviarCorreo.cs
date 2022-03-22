@@ -12,8 +12,8 @@ namespace FisioterapiaUlatskawa.Tags
     {
         static string cuerpoMensaje = "";
 
-        public static MailAddress fromAddress = new MailAddress("xxxxxxx@gmail.com", "Soporte Ulatskawa");
-        string fromPassword = "xxxxxxx";
+        public static MailAddress fromAddress = new MailAddress("ulatskawafisio@gmail.com", "Soporte Ulatskawa");
+        string fromPassword = "Fisio1234,";
 
         public static SmtpClient smtp;
 
@@ -288,9 +288,9 @@ namespace FisioterapiaUlatskawa.Tags
 
                     MailMessage mail = new MailMessage();
 
-                    var fromAddress = new MailAddress("ajcg199519@gmail.com", "Soporte Ulatskawa");
+                    var fromAddress = new MailAddress("oscarbarrantes1@gmail.com", "Soporte Ulatskawa");
 
-                    //  var fromAddress = new MailAddress("ajcg199519@gmail.com", "Notificacion");
+                    //  var fromAddress = new MailAddress("ulatskawafisio@gmail.com", "Notificacion");
 
 
                     var toAddress = new MailAddress(correo, subject);
