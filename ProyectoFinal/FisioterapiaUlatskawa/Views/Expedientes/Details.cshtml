@@ -1,0 +1,106 @@
+﻿@model FisioterapiaUlatskawa.DataModel.Expediente
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Expediente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ciudad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ciudad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.canton)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.canton)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.distrito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.distrito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.diagnostico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.diagnostico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.antecedentes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.antecedentes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mediUtilizados)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mediUtilizados)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.anteQuirurgicos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.anteQuirurgicos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fracturas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fracturas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.anteFamiliares)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.anteFamiliares)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.cedula }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
