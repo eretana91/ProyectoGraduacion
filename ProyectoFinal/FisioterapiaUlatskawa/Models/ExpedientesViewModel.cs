@@ -12,10 +12,12 @@ namespace FisioterapiaUlatskawa.Models
         [Key]
         [Display(Name = "Paciente")]
         public int cedula { get; set; }
+        public List<SelectListItem> ListaUsuarios { get; set; }
+
 
         [Display(Name = "Fecha de Nacimiento")]
         [DataType(DataType.Date)]
-        public Nullable<int> fechaN { get; set; }
+        public DateTime fechaN { get; set; }
 
         [Display(Name = "Ciudad")]
         public string ciudad { get; set; }
