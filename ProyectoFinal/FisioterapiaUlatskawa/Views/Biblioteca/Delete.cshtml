@@ -1,0 +1,50 @@
+﻿@model FisioterapiaUlatskawa.Models.BibliotecaViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar Video</h2>
+
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        @Html.HiddenFor(model => model.idVideo)
+
+        <dt>
+            @Html.DisplayNameFor(model => model.url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eiminar" class="btn btn-danger" /> 
+            @*@Html.ActionLink("Back to List", "Index")*@
+        </div>
+    }
+</div>

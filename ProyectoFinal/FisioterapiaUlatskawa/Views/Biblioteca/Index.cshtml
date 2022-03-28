@@ -59,7 +59,13 @@
                                    class="btn btn-primary btn-sm btn-full" title="Editar">
                                     Editar
                                 </a>
-                               
+                                |
+                                <a href="@Url.Action("Delete", "Biblioteca", new {
+                            pTituloVideo=item.idVideo})"
+                                   class="btn btn-danger btn-sm btn-full" title="Eliminar">
+                                    Eliminar
+                                </a>
+                                
                             </td>
                         </tr>
                     }

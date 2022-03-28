@@ -2251,6 +2251,7 @@
     <Content Include="Views\Expedientes\Index.cshtml" />
     <Content Include="Views\Biblioteca\Create.cshtml" />
     <Content Include="Views\Biblioteca\Edit.cshtml" />
+    <Content Include="Views\Biblioteca\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

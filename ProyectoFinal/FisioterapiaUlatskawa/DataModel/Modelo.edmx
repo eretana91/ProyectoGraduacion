@@ -259,6 +259,12 @@
         <Function Name="ConsultaVideo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pTituloVideo" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="EliminaVideo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pIdVideo" Type="int" Mode="In" />
+          <Parameter Name="pTituloVideo" Type="varchar" Mode="In" />
+          <Parameter Name="pUrlVideo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="pDescripcionVideo" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="InsertarAntecedente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pIdAntecedente" Type="int" Mode="In" />
@@ -720,6 +726,12 @@
           <FunctionImport Name="ConsultaVideo" ReturnType="Collection(UlatskawaModel.ConsultaVideo_Result)">
             <Parameter Name="pTituloVideo" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="EliminaVideo" ReturnType="Collection(String)">
+            <Parameter Name="pIdVideo" Mode="In" Type="Int32" />
+            <Parameter Name="pTituloVideo" Mode="In" Type="String" />
+            <Parameter Name="pUrlVideo" Mode="In" Type="String" />
+            <Parameter Name="pDescripcionVideo" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="InsertarAntecedente" ReturnType="Collection(String)">
             <Parameter Name="pIdAntecedente" Mode="In" Type="Int32" />
             <Parameter Name="pNombreAntecedente" Mode="In" Type="String" />
@@ -1124,6 +1136,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EliminaVideo" FunctionName="UlatskawaModel.Store.EliminaVideo" />
           <FunctionImportMapping FunctionImportName="InsertarAntecedente" FunctionName="UlatskawaModel.Store.InsertarAntecedente" />
           <FunctionImportMapping FunctionImportName="InsertarEnfermedad" FunctionName="UlatskawaModel.Store.InsertarEnfermedad" />
           <FunctionImportMapping FunctionImportName="InsertarPagos" FunctionName="UlatskawaModel.Store.InsertarPagos" />

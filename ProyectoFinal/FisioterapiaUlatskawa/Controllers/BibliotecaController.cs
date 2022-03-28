@@ -136,7 +136,7 @@ namespace FisioterapiaUlatskawa.Controllers
 
         [HttpPost]
      
-        public ActionResult Create([Bind(Include = "url,titulo,descripcion")] BibliotecaViewModel bibliotecaVM)
+        public ActionResult Create([Bind(Include = "titulo,url,descripcion")] BibliotecaViewModel bibliotecaVM)
         {
             if (ModelState.IsValid)
             {
@@ -208,24 +208,7 @@ namespace FisioterapiaUlatskawa.Controllers
             try
             {
 
-                //List<SelectListItem> ListaTipoUsuario = new List<SelectListItem>();
-
-                //ListaTipoUsuario.Add(new SelectListItem
-                //{
-                //    Value = "1",
-                //    Text = "Administrador"
-                //});
-
-                //ListaTipoUsuario.Add(new SelectListItem
-                //{
-                //    Value = "2",
-                //    Text = "Limitado"
-                //});
-
-
-
-
-                var resultado = context.ConsultaVideo(pTituloVideo).FirstOrDefault();
+             var resultado = context.ConsultaVideo(pTituloVideo).FirstOrDefault();
 
                 BibliotecaViewModel videoVM = new BibliotecaViewModel
                 {
@@ -294,5 +277,55 @@ namespace FisioterapiaUlatskawa.Controllers
             return View(bibliotecaVM);
         }
         #endregion
+
+
+
+      
+
+        // POST: Clases/Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete([Bind(Include = "idVideo,url,titulo,descripcion")] BibliotecaViewModel bibliotecaVM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+
+                    var result = context.EliminaVideo(
+                        bibliotecaVM.idVideo,
+                        bibliotecaVM.titulo,
+                        bibliotecaVM.url,
+                        bibliotecaVM.descripcion
+                        ).FirstOrDefault();
+
+                    TempData["Message"] = "Video eliminado correctamente";
+
+
+
+
+                    return RedirectToAction("Index", "Biblioteca");
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        TempData["ErrorMessage"] = ex.InnerException.Message;
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = ex.Message;
+                    }
+                }
+            }
+
+            return View(bibliotecaVM);
+        }
+        
+
+
+
+
     }
 }
