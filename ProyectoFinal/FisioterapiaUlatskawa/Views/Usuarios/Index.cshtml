@@ -32,6 +32,7 @@
                             @Html.DisplayNameFor(model => model.telefono)
                         </th>
                         <th>
+                            <a href="~/Views/Usuarios/Index.cshtml">~/Views/Usuarios/Index.cshtml</a>
                             @Html.DisplayNameFor(model => model.email)
                         </th>
                        
@@ -95,10 +96,23 @@
     <script src="~/Tema/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="~/Tema/js/demo/datatables-demo.js"></script>
 
+    @*<script type="text/javascript"> 
 
-    <script src="~/Scripts/Alerts.js"></script>
+        $(document).ready(funtion () {
 
-    <script type="text/javascript">
+        $('#dataTable').DataTable({
+
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+            }
+        });
+    });*@
+
+    @*</script>*@
+
+    @*<script src="~/Scripts/Alerts.js"></script>*@
+
+    @*<script type="text/javascript">*@
 
 
 
@@ -106,7 +120,7 @@
 
 
 
-    $(document).ready(function () {
+    @*$(document).ready(function () {
 
     var successOptions = {
     icon: 'flaticon-alarm-1',
@@ -175,4 +189,4 @@
     });
 
 
-    </script>
+    </script>*@
