@@ -32,7 +32,7 @@
                             @Html.DisplayNameFor(model => model.url)
                         </th>
                         
-                        <th>op</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
 
@@ -55,8 +55,8 @@
                           
                             <td>
                                 <a href="@Url.Action("Edit", "Biblioteca", new {
-                            pIdVideo = item.idVideo })"
-                                   class="btn btn-info btn-sm btn-full" title="Editar">
+                            pTituloVideo =item.titulo.ToString()})"
+                                   class="btn btn-primary btn-sm btn-full" title="Editar">
                                     Editar
                                 </a>
                                

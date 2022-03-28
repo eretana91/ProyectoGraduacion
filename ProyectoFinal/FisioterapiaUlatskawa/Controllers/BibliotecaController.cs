@@ -229,6 +229,7 @@ namespace FisioterapiaUlatskawa.Controllers
 
                 BibliotecaViewModel videoVM = new BibliotecaViewModel
                 {
+                    idVideo = resultado.idVideo,
                     titulo = resultado.tituloVideo,
                     url = resultado.urlVideo,
                     descripcion = resultado.descripcionVideo
@@ -255,7 +256,7 @@ namespace FisioterapiaUlatskawa.Controllers
         // POST: Clases/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "tituloVideo,urlVideo,descripcionVideo")] BibliotecaViewModel bibliotecaVM)
+        public ActionResult Edit([Bind(Include = "idVideo,url,titulo,descripcion")] BibliotecaViewModel bibliotecaVM)
         {
             if (ModelState.IsValid)
             {

@@ -15,10 +15,10 @@
 
 
 
-        <a href="@Url.Action("Index", "Usuarios")" class="btn btn-danger btn-full ">
+        <a
+    </div> href="@Url.Action("Index", "Usuarios")" class="btn btn-danger btn-full ">
             <i class="fa fa-arrow-alt-circle-left"></i> Atrás
         </a>
-    </div>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.cedula)
