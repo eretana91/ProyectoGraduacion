@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FisioterapiaUlatskawa.DataModel.Expediente>
+﻿@model FisioterapiaUlatskawa.Models.ExpedientesViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -42,52 +42,53 @@
             @Html.DisplayNameFor(model => model.anteFamiliares)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Usuario.nombre)
+            @Html.DisplayNameFor(model => model.cedula)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ciudad)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.canton)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.distrito)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.diagnostico)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.antecedentes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.mediUtilizados)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.anteQuirurgicos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fracturas)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.anteFamiliares)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.cedula }) |
-            @Html.ActionLink("Details", "Details", new { id=item.cedula }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.cedula })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ciudad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.canton)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.distrito)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.diagnostico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.antecedentes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mediUtilizados)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.anteQuirurgicos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fracturas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.anteFamiliares)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cedula)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.cedula }) |
+                @Html.ActionLink("Details", "Details", new { id = item.cedula }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.cedula })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -244,6 +244,7 @@
     <Compile Include="Models\AntecedentesViewModel.cs" />
     <Compile Include="Models\BibliotecaViewModel.cs" />
     <Compile Include="Models\EnfermedadesViewModel.cs" />
+    <Compile Include="Models\ExpedientesViewModel.cs" />
     <Compile Include="Models\InventariosViewModel.cs" />
     <Compile Include="Models\PagosViewModel.cs" />
     <Compile Include="Models\ResultViewModel.cs" />

@@ -142,9 +142,26 @@
                         <a class="collapse-item" href="@Url.Action(controllerName: "Biblioteca",actionName: "Index" )" style="margin-bottom:12px;">
                             <i class="fa fa-video" style="padding-right:5px"></i>Videos
                         </a>
-                        @*<a class="collapse-item" href="@Url.Action(controllerName: "Biblioteca",actionName: "Fotos" )" style="margin-bottom:12px;">
-                            <i class="fa fa-file-image" style="padding-right:5px"></i>Fotos
-                        </a>*@
+                    </div>
+                </div>
+
+            </li>
+            <!-- Divider -->
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpedientes"
+                   aria-expanded="true" aria-controls="collapseExpedientes">
+                    <i class="fa fa-folder"></i>
+                    <span>Expedientes</span>
+                </a>
+                <div id="collapseExpedientes" class="collapse" aria-labelledby="headingExpedientes" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="@Url.Action(controllerName: "Expedientes",actionName: "Create" )" style="margin-bottom:12px;">
+                            <i class="fa fa-plus-square" style="padding-right:5px"></i>Crear
+                        </a>
+                        <a class="collapse-item" href="@Url.Action(controllerName: "Expedientes",actionName: "index" )" style="margin-bottom:12px;">
+                            <i class="fa fa-th-list" style="padding-right:5px"></i>Detalles
+                        </a>
                     </div>
                 </div>
 

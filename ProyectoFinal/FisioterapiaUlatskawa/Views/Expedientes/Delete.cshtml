@@ -1,4 +1,4 @@
-﻿@model FisioterapiaUlatskawa.DataModel.Expediente
+﻿@model FisioterapiaUlatskawa.Models.ExpedientesViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -92,16 +92,17 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Usuario.nombre)
+            @Html.DisplayNameFor(model => model.cedula)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Usuario.nombre)
+            @Html.DisplayFor(model => model.cedula)
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
