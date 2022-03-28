@@ -28,34 +28,67 @@ namespace FisioterapiaUlatskawa.Controllers
 
             List<BibliotecaViewModel> listado = new List<BibliotecaViewModel>();
 
-            listado.Add(new BibliotecaViewModel {
-                url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-                descripcion = "Prueba",
-                titulo = "Relajación de músculos"
-            });
-
-            listado.Add(new BibliotecaViewModel
+            try
             {
-                url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-                descripcion = "Prueba",
-                titulo = "Relajación de músculos"
-            });
 
-            listado.Add(new BibliotecaViewModel
+                var result = context.ListarVideos().ToList();
+
+                foreach (var dato in result)
+                {
+                    listado.Add(new BibliotecaViewModel
+                    {
+                        titulo = dato.tituloVideo,
+                        url = dato.urlVideo,
+                        descripcion = dato.descripcionVideo,
+                    });
+                };
+
+
+
+                return View(listado);
+            }
+            catch (Exception ex)
             {
-                url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-                descripcion = "Prueba",
-                titulo = "Relajación de músculos"
-            });
+                if (ex.InnerException != null)
+                {
+                    TempData["ErrorMessage"] = ex.InnerException.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = ex.Message;
+                }
 
-            listado.Add(new BibliotecaViewModel
-            {
-                url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-                descripcion = "Prueba",
-                titulo = "Relajación de músculos"
-            });
+                return View(listado);
+            }
 
-            return View(listado);
+            //listado.Add(new BibliotecaViewModel {
+            //    url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
+            //    descripcion = "Prueba",
+            //    titulo = "Relajación de músculos"
+            //});
+
+            //listado.Add(new BibliotecaViewModel
+            //{
+            //    url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
+            //    descripcion = "Prueba",
+            //    titulo = "Relajación de músculos"
+            //});
+
+            //listado.Add(new BibliotecaViewModel
+            //{
+            //    url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
+            //    descripcion = "Prueba",
+            //    titulo = "Relajación de músculos"
+            //});
+
+            //listado.Add(new BibliotecaViewModel
+            //{
+            //    url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
+            //    descripcion = "Prueba",
+            //    titulo = "Relajación de músculos"
+            //});
+
+            //return View(listado);
         }
 
 
@@ -68,22 +101,22 @@ namespace FisioterapiaUlatskawa.Controllers
             {
 
 
-                List<SelectListItem> ListaTipoInventario = new List<SelectListItem>();
+               List<SelectListItem> Lista = new List<SelectListItem>();
 
-                var result = context.ListarTipoProducto().ToList();
+                var result = context.ListarVideos().ToList();
 
-                foreach (var dato in result)
-                {
-                    ListaTipoInventario.Add(new SelectListItem
-                    {
-                        Value = dato.TipoProducto.ToString(),
-                        Text = dato.nombreTipoProducto
-                    });
-                };
+            //    foreach (var dato in result)
+            //    {
+            //        ListaTipoInventario.Add(new SelectListItem
+            //        {
+            //            Value = dato.TipoProducto.ToString(),
+            //            Text = dato.nombreTipoProducto
+            //        });
+            //    };
 
-                //bibliotecaViewModel.ListaTipoProducto = ListaTipoInventario;
+            //    //bibliotecaViewModel.ListaTipoProducto = ListaTipoInventario;
 
-                return View(bibliotecaViewModel);
+            return View(bibliotecaViewModel);
             }
             catch (Exception ex)
             {
@@ -97,7 +130,7 @@ namespace FisioterapiaUlatskawa.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Inventario");
+            return RedirectToAction("Index", "Biblioteca");
         }
 
 
@@ -110,12 +143,12 @@ namespace FisioterapiaUlatskawa.Controllers
                 try
                 {
 
-                    //var resulta = context.(
+                    var resulta = context.InsertarVideo(
 
-                    //  bibliotecaVM.titulo,
-                    //  bibliotecaVM.url,
-                    //  bibliotecaVM.descripcion
-                    //   ).FirstOrDefault();
+                      bibliotecaVM.titulo,
+                      bibliotecaVM.url,
+                      bibliotecaVM.descripcion
+                       ).FirstOrDefault();
 
 
                     TempData["Message"] = "Video Insertado correctamente";
@@ -161,6 +194,101 @@ namespace FisioterapiaUlatskawa.Controllers
             };
 
             //bibliotecaVM.Lista = ListaTipoProducto;
+
+            return View(bibliotecaVM);
+        }
+        #endregion
+
+
+        #region GET: Usuarios/Edit
+        public ActionResult Edit(string pTituloVideo)
+        {
+
+
+            try
+            {
+
+                //List<SelectListItem> ListaTipoUsuario = new List<SelectListItem>();
+
+                //ListaTipoUsuario.Add(new SelectListItem
+                //{
+                //    Value = "1",
+                //    Text = "Administrador"
+                //});
+
+                //ListaTipoUsuario.Add(new SelectListItem
+                //{
+                //    Value = "2",
+                //    Text = "Limitado"
+                //});
+
+
+
+
+                var resultado = context.ConsultaVideo(pTituloVideo).FirstOrDefault();
+
+                BibliotecaViewModel videoVM = new BibliotecaViewModel
+                {
+                    titulo = resultado.tituloVideo,
+                    url = resultado.urlVideo,
+                    descripcion = resultado.descripcionVideo
+
+                };
+
+                return View(videoVM);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    TempData["ErrorMessage"] = ex.InnerException.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = ex.Message;
+                }
+
+                return RedirectToAction("Index", "Biblioteca");
+            }
+        }
+
+        // POST: Clases/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "tituloVideo,urlVideo,descripcionVideo")] BibliotecaViewModel bibliotecaVM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+
+                    var result = context.ActualizarVideo(
+                        bibliotecaVM.idVideo,
+                        bibliotecaVM.titulo,
+                        bibliotecaVM.url,
+                        bibliotecaVM.descripcion
+                        ).FirstOrDefault();
+
+                    TempData["Message"] = "Video modificado correctamente";
+
+
+
+
+                    return RedirectToAction("Index", "Biblioteca");
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        TempData["ErrorMessage"] = ex.InnerException.Message;
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = ex.Message;
+                    }
+                }
+            }
 
             return View(bibliotecaVM);
         }

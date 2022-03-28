@@ -4,25 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8e2f2b16003d4145bbb21b57bcaf20ef" Name="Diagram1">
-        <EntityTypeShape EntityType="UlatskawaModel.Antecedente" Width="1.5" PointX="5.25" PointY="13.25" />
-        <EntityTypeShape EntityType="UlatskawaModel.Biblioteca" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="UlatskawaModel.Enfermedade" Width="1.5" PointX="5.25" PointY="10.75" />
-        <EntityTypeShape EntityType="UlatskawaModel.Expediente" Width="1.5" PointX="5.25" PointY="3.125" />
-        <EntityTypeShape EntityType="UlatskawaModel.Inventario" Width="1.5" PointX="10" PointY="1" />
-        <EntityTypeShape EntityType="UlatskawaModel.Pago" Width="1.5" PointX="8.25" PointY="6" />
-        <EntityTypeShape EntityType="UlatskawaModel.sysdiagram" Width="1.5" PointX="8.75" PointY="9.75" />
-        <EntityTypeShape EntityType="UlatskawaModel.TipoPago" Width="1.5" PointX="6" PointY="7.625" />
-        <EntityTypeShape EntityType="UlatskawaModel.TipoProducto" Width="1.5" PointX="7.75" PointY="1.5" />
-        <EntityTypeShape EntityType="UlatskawaModel.TipoUsuario" Width="1.5" PointX="0.75" PointY="6.625" />
-        <EntityTypeShape EntityType="UlatskawaModel.Usuario" Width="1.5" PointX="3" PointY="5.75" />
-        <AssociationConnector Association="UlatskawaModel.FK__Anteceden__cedul__37A5467C" />
-        <AssociationConnector Association="UlatskawaModel.FK__Enfermeda__cedul__38996AB5" />
-        <AssociationConnector Association="UlatskawaModel.FK_Usuarios_Expedientes" />
-        <AssociationConnector Association="UlatskawaModel.FK__Inventari__tipoP__398D8EEE" />
-        <AssociationConnector Association="UlatskawaModel.FK__Pagos__cedula__3A81B327" />
-        <AssociationConnector Association="UlatskawaModel.FK__Pagos__tipoPago__3B75D760" />
-        <AssociationConnector Association="UlatskawaModel.FK__Usuario__idTipoU__3C69FB99" />
+      <Diagram DiagramId="265e006d1dc94bbea133a4c311aaa224" Name="Diagram1">
+        <EntityTypeShape EntityType="UlatskawaModel.Antecedente" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Biblioteca" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Enfermedade" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Expediente" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Inventario" Width="1.5" PointX="11" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Pago" Width="1.5" PointX="8.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.sysdiagram" Width="1.5" PointX="7.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.TipoPago" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.TipoProducto" Width="1.5" PointX="8.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.TipoUsuario" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Usuario" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="UlatskawaModel.FK__Anteceden__cedul__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="UlatskawaModel.FK__Enfermeda__cedul__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="UlatskawaModel.FK_Usuarios_Expedientes" ManuallyRouted="false" />
+        <AssociationConnector Association="UlatskawaModel.FK__Inventari__tipoP__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="UlatskawaModel.FK__Pagos__cedula__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="UlatskawaModel.FK__Pagos__tipoPago__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="UlatskawaModel.FK__Usuario__idTipoU__3C69FB99" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

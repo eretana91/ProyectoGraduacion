@@ -172,6 +172,27 @@ namespace FisioterapiaUlatskawa.DataModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ActualizarUsuarios", pCedulaParameter, pNombreParameter, pApellidosParameter, pTelefonoParameter, pEmailParameter, pContrasennaParameter, pIdTipoUsuarioParameter);
         }
     
+        public virtual ObjectResult<string> ActualizarVideo(Nullable<int> pIdVideo, string pTituloVideo, string pUrlVideo, string pDescripcionVideo)
+        {
+            var pIdVideoParameter = pIdVideo.HasValue ?
+                new ObjectParameter("pIdVideo", pIdVideo) :
+                new ObjectParameter("pIdVideo", typeof(int));
+    
+            var pTituloVideoParameter = pTituloVideo != null ?
+                new ObjectParameter("pTituloVideo", pTituloVideo) :
+                new ObjectParameter("pTituloVideo", typeof(string));
+    
+            var pUrlVideoParameter = pUrlVideo != null ?
+                new ObjectParameter("pUrlVideo", pUrlVideo) :
+                new ObjectParameter("pUrlVideo", typeof(string));
+    
+            var pDescripcionVideoParameter = pDescripcionVideo != null ?
+                new ObjectParameter("pDescripcionVideo", pDescripcionVideo) :
+                new ObjectParameter("pDescripcionVideo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ActualizarVideo", pIdVideoParameter, pTituloVideoParameter, pUrlVideoParameter, pDescripcionVideoParameter);
+        }
+    
         public virtual ObjectResult<ConsultaProducto_Result> ConsultaProducto(string pCodigoBarras)
         {
             var pCodigoBarrasParameter = pCodigoBarras != null ?
@@ -215,6 +236,15 @@ namespace FisioterapiaUlatskawa.DataModel
                 new ObjectParameter("pIdUsuario", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultaUsuario_Result>("ConsultaUsuario", pIdUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<ConsultaVideo_Result> ConsultaVideo(string pTituloVideo)
+        {
+            var pTituloVideoParameter = pTituloVideo != null ?
+                new ObjectParameter("pTituloVideo", pTituloVideo) :
+                new ObjectParameter("pTituloVideo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultaVideo_Result>("ConsultaVideo", pTituloVideoParameter);
         }
     
         public virtual ObjectResult<string> InsertarAntecedente(Nullable<int> pIdAntecedente, string pNombreAntecedente, string pCedula)
@@ -342,6 +372,23 @@ namespace FisioterapiaUlatskawa.DataModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("InsertarUsuario", pCedulaParameter, pNombreParameter, pApellidosParameter, pTelefonoParameter, pEmailParameter, pContrasennaParameter, pIdTipoUsuarioParameter);
         }
     
+        public virtual ObjectResult<string> InsertarVideo(string pTituloVideo, string pUrlVideo, string pDescripcionVideo)
+        {
+            var pTituloVideoParameter = pTituloVideo != null ?
+                new ObjectParameter("pTituloVideo", pTituloVideo) :
+                new ObjectParameter("pTituloVideo", typeof(string));
+    
+            var pUrlVideoParameter = pUrlVideo != null ?
+                new ObjectParameter("pUrlVideo", pUrlVideo) :
+                new ObjectParameter("pUrlVideo", typeof(string));
+    
+            var pDescripcionVideoParameter = pDescripcionVideo != null ?
+                new ObjectParameter("pDescripcionVideo", pDescripcionVideo) :
+                new ObjectParameter("pDescripcionVideo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("InsertarVideo", pTituloVideoParameter, pUrlVideoParameter, pDescripcionVideoParameter);
+        }
+    
         public virtual ObjectResult<ListarAntecedentes_Result> ListarAntecedentes(string pCedula)
         {
             var pCedulaParameter = pCedula != null ?
@@ -394,21 +441,9 @@ namespace FisioterapiaUlatskawa.DataModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ListarUsuarios_Result>("ListarUsuarios");
         }
     
-        public virtual ObjectResult<string> InsertarVideo(string pTituloVideo, string pUrlVideo, string pDescripcionVideo)
+        public virtual ObjectResult<ListarVideos_Result> ListarVideos()
         {
-            var pTituloVideoParameter = pTituloVideo != null ?
-                new ObjectParameter("pTituloVideo", pTituloVideo) :
-                new ObjectParameter("pTituloVideo", typeof(string));
-    
-            var pUrlVideoParameter = pUrlVideo != null ?
-                new ObjectParameter("pUrlVideo", pUrlVideo) :
-                new ObjectParameter("pUrlVideo", typeof(string));
-    
-            var pDescripcionVideoParameter = pDescripcionVideo != null ?
-                new ObjectParameter("pDescripcionVideo", pDescripcionVideo) :
-                new ObjectParameter("pDescripcionVideo", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("InsertarVideo", pTituloVideoParameter, pUrlVideoParameter, pDescripcionVideoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ListarVideos_Result>("ListarVideos");
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)

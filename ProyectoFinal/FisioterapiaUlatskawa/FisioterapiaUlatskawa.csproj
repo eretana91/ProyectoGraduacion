@@ -160,6 +160,9 @@
     <Compile Include="DataModel\ConsultaUsuario_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\ConsultaVideo_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\Enfermedade.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -191,6 +194,9 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\ListarUsuarios_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\ListarVideos_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Modelo.Context.cs">
@@ -2235,7 +2241,6 @@
     <Content Include="Tema\vendor\jquery\jquery.min.map" />
     <Content Include="Tema\vendor\jquery\jquery.slim.min.map" />
     <Content Include="Views\Biblioteca\Index.cshtml" />
-    <Content Include="Views\Biblioteca\Create.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Expedientes\Create.cshtml" />
@@ -2243,6 +2248,8 @@
     <Content Include="Views\Expedientes\Details.cshtml" />
     <Content Include="Views\Expedientes\Edit.cshtml" />
     <Content Include="Views\Expedientes\Index.cshtml" />
+    <Content Include="Views\Biblioteca\Create.cshtml" />
+    <Content Include="Views\Biblioteca\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

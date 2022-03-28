@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="UlatskawaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="UlatskawaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Antecedentes">
           <Key>
             <PropertyRef Name="idAntecedente" />
@@ -17,7 +17,7 @@
           <Key>
             <PropertyRef Name="idVideo" />
           </Key>
-          <Property Name="idVideo" Type="int" Nullable="false" />
+          <Property Name="idVideo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tituloVideo" Type="varchar" MaxLength="200" />
           <Property Name="urlVideo" Type="varchar(max)" />
           <Property Name="descripcionVideo" Type="varchar" MaxLength="200" />
@@ -235,6 +235,12 @@
           <Parameter Name="pContrasenna" Type="varchar" Mode="In" />
           <Parameter Name="pIdTipoUsuario" Type="int" Mode="In" />
         </Function>
+        <Function Name="ActualizarVideo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pIdVideo" Type="int" Mode="In" />
+          <Parameter Name="pTituloVideo" Type="varchar" Mode="In" />
+          <Parameter Name="pUrlVideo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="pDescripcionVideo" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="ConsultaProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pCodigoBarras" Type="varchar" Mode="In" />
         </Function>
@@ -249,6 +255,9 @@
         </Function>
         <Function Name="ConsultaUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pIdUsuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ConsultaVideo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pTituloVideo" Type="varchar" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="InsertarAntecedente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -305,6 +314,7 @@
         <Function Name="ListarTipoPagos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ListarTipoProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ListarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ListarVideos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -397,11 +407,258 @@
             <End Role="Expedientes" EntitySet="Expedientes" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UlatskawaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Antecedente">
+          <Key>
+            <PropertyRef Name="idAntecedente" />
+          </Key>
+          <Property Name="idAntecedente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreAntecedente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Anteceden__cedul__37A5467C" FromRole="Antecedentes" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Biblioteca">
+          <Key>
+            <PropertyRef Name="idVideo" />
+          </Key>
+          <Property Name="idVideo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tituloVideo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="urlVideo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripcionVideo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Enfermedade">
+          <Key>
+            <PropertyRef Name="idEnfermedad" />
+          </Key>
+          <Property Name="idEnfermedad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreEnfermedad" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Enfermeda__cedul__38996AB5" FromRole="Enfermedades" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Expediente">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaN" Type="DateTime" Precision="0" />
+          <Property Name="ciudad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="canton" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="distrito" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="diagnostico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="antecedentes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="mediUtilizados" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="anteQuirurgicos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fracturas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="anteFamiliares" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuarios_Expedientes" FromRole="Expedientes" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Inventario">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoProducto" Type="Int32" />
+          <Property Name="nombreProducto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="codigoBarras" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="fechaExpiracion" Type="DateTime" Precision="0" />
+          <Property Name="notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TipoProducto1" Relationship="Self.FK__Inventari__tipoP__398D8EEE" FromRole="Inventarios" ToRole="TipoProducto" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="idPago" />
+          </Key>
+          <Property Name="idPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoPago" Type="Int32" />
+          <Property Name="monto" Type="Double" />
+          <Property Name="banco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fechaPago" Type="DateTime" Precision="3" />
+          <Property Name="notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Pagos__cedula__3A81B327" FromRole="Pagos" ToRole="Usuario" />
+          <NavigationProperty Name="TipoPago1" Relationship="Self.FK__Pagos__tipoPago__3B75D760" FromRole="Pagos" ToRole="TipoPago" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TipoPago">
+          <Key>
+            <PropertyRef Name="tipoPago1" />
+          </Key>
+          <Property Name="tipoPago1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombrePago" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pagos" Relationship="Self.FK__Pagos__tipoPago__3B75D760" FromRole="TipoPago" ToRole="Pagos" />
+        </EntityType>
+        <EntityType Name="TipoProducto">
+          <Key>
+            <PropertyRef Name="tipoProducto1" />
+          </Key>
+          <Property Name="tipoProducto1" Type="Int32" Nullable="false" />
+          <Property Name="nombreTipoProducto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Inventarios" Relationship="Self.FK__Inventari__tipoP__398D8EEE" FromRole="TipoProducto" ToRole="Inventarios" />
+        </EntityType>
+        <EntityType Name="TipoUsuario">
+          <Key>
+            <PropertyRef Name="idTipoUsuario" />
+          </Key>
+          <Property Name="idTipoUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoUsuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuario__idTipoU__3C69FB99" FromRole="TipoUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="cedula" />
+          </Key>
+          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="contrasenna" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idTipoUsuario" Type="Int32" />
+          <NavigationProperty Name="Antecedentes" Relationship="Self.FK__Anteceden__cedul__37A5467C" FromRole="Usuario" ToRole="Antecedentes" />
+          <NavigationProperty Name="Enfermedades" Relationship="Self.FK__Enfermeda__cedul__38996AB5" FromRole="Usuario" ToRole="Enfermedades" />
+          <NavigationProperty Name="Expediente" Relationship="Self.FK_Usuarios_Expedientes" FromRole="Usuario" ToRole="Expedientes" />
+          <NavigationProperty Name="Pagos" Relationship="Self.FK__Pagos__cedula__3A81B327" FromRole="Usuario" ToRole="Pagos" />
+          <NavigationProperty Name="TipoUsuario" Relationship="Self.FK__Usuario__idTipoU__3C69FB99" FromRole="Usuario" ToRole="TipoUsuario" />
+        </EntityType>
+        <Association Name="FK__Anteceden__cedul__37A5467C">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Antecedentes" Type="Self.Antecedente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="Antecedentes">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enfermeda__cedul__38996AB5">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Enfermedades" Type="Self.Enfermedade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="Enfermedades">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Expedientes">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Expedientes" Type="Self.Expediente" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="Expedientes">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventari__tipoP__398D8EEE">
+          <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="0..1" />
+          <End Role="Inventarios" Type="Self.Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoProducto">
+              <PropertyRef Name="tipoProducto1" />
+            </Principal>
+            <Dependent Role="Inventarios">
+              <PropertyRef Name="tipoProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pagos__cedula__3A81B327">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="cedula" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="cedula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pagos__tipoPago__3B75D760">
+          <End Role="TipoPago" Type="Self.TipoPago" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoPago">
+              <PropertyRef Name="tipoPago1" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="tipoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__idTipoU__3C69FB99">
+          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuario">
+              <PropertyRef Name="idTipoUsuario" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Context" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Antecedentes" EntityType="Self.Antecedente" />
+          <EntitySet Name="Bibliotecas" EntityType="Self.Biblioteca" />
+          <EntitySet Name="Enfermedades" EntityType="Self.Enfermedade" />
+          <EntitySet Name="Expedientes" EntityType="Self.Expediente" />
+          <EntitySet Name="Inventarios" EntityType="Self.Inventario" />
+          <EntitySet Name="Pagos" EntityType="Self.Pago" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TipoPagoes" EntityType="Self.TipoPago" />
+          <EntitySet Name="TipoProductoes" EntityType="Self.TipoProducto" />
+          <EntitySet Name="TipoUsuarios" EntityType="Self.TipoUsuario" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Anteceden__cedul__37A5467C" Association="Self.FK__Anteceden__cedul__37A5467C">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Antecedentes" EntitySet="Antecedentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enfermeda__cedul__38996AB5" Association="Self.FK__Enfermeda__cedul__38996AB5">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Enfermedades" EntitySet="Enfermedades" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Expedientes" Association="Self.FK_Usuarios_Expedientes">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Expedientes" EntitySet="Expedientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventari__tipoP__398D8EEE" Association="Self.FK__Inventari__tipoP__398D8EEE">
+            <End Role="TipoProducto" EntitySet="TipoProductoes" />
+            <End Role="Inventarios" EntitySet="Inventarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pagos__cedula__3A81B327" Association="Self.FK__Pagos__cedula__3A81B327">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pagos__tipoPago__3B75D760" Association="Self.FK__Pagos__tipoPago__3B75D760">
+            <End Role="TipoPago" EntitySet="TipoPagoes" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__idTipoU__3C69FB99" Association="Self.FK__Usuario__idTipoU__3C69FB99">
+            <End Role="TipoUsuario" EntitySet="TipoUsuarios" />
+            <End Role="Usuario" EntitySet="Usuarios" />
+          </AssociationSet>
           <FunctionImport Name="ActualizarAntecedente" ReturnType="Collection(String)">
             <Parameter Name="pIdAntecedentes" Mode="In" Type="Int32" />
             <Parameter Name="pNombreAntecedentes" Mode="In" Type="String" />
@@ -439,20 +696,29 @@
             <Parameter Name="pContrasenna" Mode="In" Type="String" />
             <Parameter Name="pIdTipoUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="ActualizarVideo" ReturnType="Collection(String)">
+            <Parameter Name="pIdVideo" Mode="In" Type="Int32" />
+            <Parameter Name="pTituloVideo" Mode="In" Type="String" />
+            <Parameter Name="pUrlVideo" Mode="In" Type="String" />
+            <Parameter Name="pDescripcionVideo" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="ConsultaProducto" ReturnType="Collection(UlatskawaModel.ConsultaProducto_Result)">
-          <Parameter Name="pCodigoBarras" Mode="In" Type="String" />
+            <Parameter Name="pCodigoBarras" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ConsultarAntecedente" ReturnType="Collection(UlatskawaModel.ConsultarAntecedente_Result)">
-          <Parameter Name="pIdAntecedente" Mode="In" Type="Int32" />
+            <Parameter Name="pIdAntecedente" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ConsultarEnfermedad" ReturnType="Collection(UlatskawaModel.ConsultarEnfermedad_Result)">
-          <Parameter Name="pIdEnfermedad" Mode="In" Type="Int32" />
+            <Parameter Name="pIdEnfermedad" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ConsultarPagos" ReturnType="Collection(UlatskawaModel.ConsultarPagos_Result)">
-          <Parameter Name="pIdPago" Mode="In" Type="Int32" />
+            <Parameter Name="pIdPago" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ConsultaUsuario" ReturnType="Collection(UlatskawaModel.ConsultaUsuario_Result)">
-          <Parameter Name="pIdUsuario" Mode="In" Type="String" />
+            <Parameter Name="pIdUsuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ConsultaVideo" ReturnType="Collection(UlatskawaModel.ConsultaVideo_Result)">
+            <Parameter Name="pTituloVideo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertarAntecedente" ReturnType="Collection(String)">
             <Parameter Name="pIdAntecedente" Mode="In" Type="Int32" />
@@ -489,25 +755,26 @@
             <Parameter Name="pContrasenna" Mode="In" Type="String" />
             <Parameter Name="pIdTipoUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="InsertarVideo" ReturnType="Collection(String)">
+            <Parameter Name="pTituloVideo" Mode="In" Type="String" />
+            <Parameter Name="pUrlVideo" Mode="In" Type="String" />
+            <Parameter Name="pDescripcionVideo" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="ListarAntecedentes" ReturnType="Collection(UlatskawaModel.ListarAntecedentes_Result)">
-          <Parameter Name="pCedula" Mode="In" Type="String" />
+            <Parameter Name="pCedula" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ListarEnfermedades" ReturnType="Collection(UlatskawaModel.ListarEnfermedades_Result)">
-          <Parameter Name="pCedula" Mode="In" Type="String" />
+            <Parameter Name="pCedula" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ListarMisPagos" ReturnType="Collection(UlatskawaModel.ListarMisPagos_Result)">
-          <Parameter Name="pCedula" Mode="In" Type="String" />
+            <Parameter Name="pCedula" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ListarPagos" ReturnType="Collection(UlatskawaModel.ListarPagos_Result)" />
           <FunctionImport Name="ListarProdcutos" ReturnType="Collection(UlatskawaModel.ListarProdcutos_Result)" />
           <FunctionImport Name="ListarTipoPagos" ReturnType="Collection(UlatskawaModel.ListarTipoPagos_Result)" />
           <FunctionImport Name="ListarTipoProducto" ReturnType="Collection(UlatskawaModel.ListarTipoProducto_Result)" />
           <FunctionImport Name="ListarUsuarios" ReturnType="Collection(UlatskawaModel.ListarUsuarios_Result)" />
-          <FunctionImport Name="InsertarVideo" ReturnType="Collection(String)">
-            <Parameter Name="pTituloVideo" Mode="In" Type="String" />
-            <Parameter Name="pUrlVideo" Mode="In" Type="String" />
-            <Parameter Name="pDescripcionVideo" Mode="In" Type="String" />
-          </FunctionImport>
+          <FunctionImport Name="ListarVideos" ReturnType="Collection(UlatskawaModel.ListarVideos_Result)" />
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -538,46 +805,7 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="Antecedentes" EntityType="UlatskawaModel.Antecedente" />
-          <EntitySet Name="Bibliotecas" EntityType="UlatskawaModel.Biblioteca" />
-          <EntitySet Name="Enfermedades" EntityType="UlatskawaModel.Enfermedade" />
-          <EntitySet Name="Expedientes" EntityType="UlatskawaModel.Expediente" />
-          <EntitySet Name="Inventarios" EntityType="UlatskawaModel.Inventario" />
-          <EntitySet Name="Pagos" EntityType="UlatskawaModel.Pago" />
-          <EntitySet Name="sysdiagrams" EntityType="UlatskawaModel.sysdiagram" />
-          <EntitySet Name="TipoPagoes" EntityType="UlatskawaModel.TipoPago" />
-          <EntitySet Name="TipoProductoes" EntityType="UlatskawaModel.TipoProducto" />
-          <EntitySet Name="TipoUsuarios" EntityType="UlatskawaModel.TipoUsuario" />
-          <EntitySet Name="Usuarios" EntityType="UlatskawaModel.Usuario" />
-          <AssociationSet Name="FK__Anteceden__cedul__37A5467C" Association="UlatskawaModel.FK__Anteceden__cedul__37A5467C">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Antecedente" EntitySet="Antecedentes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Enfermeda__cedul__38996AB5" Association="UlatskawaModel.FK__Enfermeda__cedul__38996AB5">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Enfermedade" EntitySet="Enfermedades" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuarios_Expedientes" Association="UlatskawaModel.FK_Usuarios_Expedientes">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Expediente" EntitySet="Expedientes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Inventari__tipoP__398D8EEE" Association="UlatskawaModel.FK__Inventari__tipoP__398D8EEE">
-            <End Role="TipoProducto" EntitySet="TipoProductoes" />
-            <End Role="Inventario" EntitySet="Inventarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pagos__cedula__3A81B327" Association="UlatskawaModel.FK__Pagos__cedula__3A81B327">
-            <End Role="Usuario" EntitySet="Usuarios" />
-            <End Role="Pago" EntitySet="Pagos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pagos__tipoPago__3B75D760" Association="UlatskawaModel.FK__Pagos__tipoPago__3B75D760">
-            <End Role="TipoPago" EntitySet="TipoPagoes" />
-            <End Role="Pago" EntitySet="Pagos" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Usuario__idTipoU__3C69FB99" Association="UlatskawaModel.FK__Usuario__idTipoU__3C69FB99">
-            <End Role="TipoUsuario" EntitySet="TipoUsuarios" />
-            <End Role="Usuario" EntitySet="Usuarios" />
-          </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
         <ComplexType Name="ConsultaProducto_Result">
           <Property Type="Int32" Name="idProducto" Nullable="false" />
           <Property Type="Int32" Name="tipoProducto" Nullable="true" />
@@ -615,6 +843,12 @@
           <Property Type="String" Name="email" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="contrasenna" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="idTipoUsuario" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ConsultaVideo_Result">
+          <Property Type="Int32" Name="idVideo" Nullable="false" />
+          <Property Type="String" Name="tituloVideo" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="urlVideo" Nullable="true" />
+          <Property Type="String" Name="descripcionVideo" Nullable="true" MaxLength="200" />
         </ComplexType>
         <ComplexType Name="ListarAntecedentes_Result">
           <Property Type="Int32" Name="idAntecedente" Nullable="false" />
@@ -673,6 +907,12 @@
           <Property Type="String" Name="contrasenna" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="idTipoUsuario" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="ListarVideos_Result">
+          <Property Type="Int32" Name="idVideo" Nullable="false" />
+          <Property Type="String" Name="tituloVideo" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="urlVideo" Nullable="true" />
+          <Property Type="String" Name="descripcionVideo" Nullable="true" MaxLength="200" />
+        </ComplexType>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -684,224 +924,138 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="Antecedente">
-          <Key>
-            <PropertyRef Name="idAntecedente" />
-          </Key>
-          <Property Name="idAntecedente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombreAntecedente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuario" Relationship="UlatskawaModel.FK__Anteceden__cedul__37A5467C" FromRole="Antecedente" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Biblioteca">
-          <Key>
-            <PropertyRef Name="idVideo" />
-          </Key>
-          <Property Name="idVideo" Type="Int32" Nullable="false" />
-          <Property Name="tituloVideo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="urlVideo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="descripcionVideo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Enfermedade">
-          <Key>
-            <PropertyRef Name="idEnfermedad" />
-          </Key>
-          <Property Name="idEnfermedad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombreEnfermedad" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuario" Relationship="UlatskawaModel.FK__Enfermeda__cedul__38996AB5" FromRole="Enfermedade" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Expediente">
-          <Key>
-            <PropertyRef Name="cedula" />
-          </Key>
-          <Property Name="cedula" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fechaN" Type="DateTime" Precision="0" />
-          <Property Name="ciudad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="canton" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="distrito" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="diagnostico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="antecedentes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="mediUtilizados" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="anteQuirurgicos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="fracturas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="anteFamiliares" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuario" Relationship="UlatskawaModel.FK_Usuarios_Expedientes" FromRole="Expediente" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Inventario">
-          <Key>
-            <PropertyRef Name="idProducto" />
-          </Key>
-          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tipoProducto" Type="Int32" />
-          <Property Name="nombreProducto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="codigoBarras" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="precio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cantidad" Type="Int32" />
-          <Property Name="fechaExpiracion" Type="DateTime" Precision="0" />
-          <Property Name="notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TipoProducto1" Relationship="UlatskawaModel.FK__Inventari__tipoP__398D8EEE" FromRole="Inventario" ToRole="TipoProducto" />
-        </EntityType>
-        <EntityType Name="Pago">
-          <Key>
-            <PropertyRef Name="idPago" />
-          </Key>
-          <Property Name="idPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tipoPago" Type="Int32" />
-          <Property Name="monto" Type="Double" />
-          <Property Name="banco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fechaPago" Type="DateTime" Precision="3" />
-          <Property Name="notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuario" Relationship="UlatskawaModel.FK__Pagos__cedula__3A81B327" FromRole="Pago" ToRole="Usuario" />
-          <NavigationProperty Name="TipoPago1" Relationship="UlatskawaModel.FK__Pagos__tipoPago__3B75D760" FromRole="Pago" ToRole="TipoPago" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="TipoPago">
-          <Key>
-            <PropertyRef Name="tipoPago1" />
-          </Key>
-          <Property Name="tipoPago1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombrePago" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Pagos" Relationship="UlatskawaModel.FK__Pagos__tipoPago__3B75D760" FromRole="TipoPago" ToRole="Pago" />
-        </EntityType>
-        <EntityType Name="TipoProducto">
-          <Key>
-            <PropertyRef Name="tipoProducto1" />
-          </Key>
-          <Property Name="tipoProducto1" Type="Int32" Nullable="false" />
-          <Property Name="nombreTipoProducto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Inventarios" Relationship="UlatskawaModel.FK__Inventari__tipoP__398D8EEE" FromRole="TipoProducto" ToRole="Inventario" />
-        </EntityType>
-        <EntityType Name="TipoUsuario">
-          <Key>
-            <PropertyRef Name="idTipoUsuario" />
-          </Key>
-          <Property Name="idTipoUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tipoUsuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuarios" Relationship="UlatskawaModel.FK__Usuario__idTipoU__3C69FB99" FromRole="TipoUsuario" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Usuario">
-          <Key>
-            <PropertyRef Name="cedula" />
-          </Key>
-          <Property Name="cedula" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="apellidos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="telefono" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="contrasenna" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="idTipoUsuario" Type="Int32" />
-          <NavigationProperty Name="Antecedentes" Relationship="UlatskawaModel.FK__Anteceden__cedul__37A5467C" FromRole="Usuario" ToRole="Antecedente" />
-          <NavigationProperty Name="Enfermedades" Relationship="UlatskawaModel.FK__Enfermeda__cedul__38996AB5" FromRole="Usuario" ToRole="Enfermedade" />
-          <NavigationProperty Name="Expediente" Relationship="UlatskawaModel.FK_Usuarios_Expedientes" FromRole="Usuario" ToRole="Expediente" />
-          <NavigationProperty Name="Pagos" Relationship="UlatskawaModel.FK__Pagos__cedula__3A81B327" FromRole="Usuario" ToRole="Pago" />
-          <NavigationProperty Name="TipoUsuario" Relationship="UlatskawaModel.FK__Usuario__idTipoU__3C69FB99" FromRole="Usuario" ToRole="TipoUsuario" />
-        </EntityType>
-        <Association Name="FK__Anteceden__cedul__37A5467C">
-          <End Type="UlatskawaModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="UlatskawaModel.Antecedente" Role="Antecedente" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="cedula" />
-            </Principal>
-            <Dependent Role="Antecedente">
-              <PropertyRef Name="cedula" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Enfermeda__cedul__38996AB5">
-          <End Type="UlatskawaModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="UlatskawaModel.Enfermedade" Role="Enfermedade" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="cedula" />
-            </Principal>
-            <Dependent Role="Enfermedade">
-              <PropertyRef Name="cedula" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuarios_Expedientes">
-          <End Type="UlatskawaModel.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="UlatskawaModel.Expediente" Role="Expediente" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="cedula" />
-            </Principal>
-            <Dependent Role="Expediente">
-              <PropertyRef Name="cedula" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Inventari__tipoP__398D8EEE">
-          <End Type="UlatskawaModel.TipoProducto" Role="TipoProducto" Multiplicity="0..1" />
-          <End Type="UlatskawaModel.Inventario" Role="Inventario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoProducto">
-              <PropertyRef Name="tipoProducto1" />
-            </Principal>
-            <Dependent Role="Inventario">
-              <PropertyRef Name="tipoProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Pagos__cedula__3A81B327">
-          <End Type="UlatskawaModel.Usuario" Role="Usuario" Multiplicity="0..1" />
-          <End Type="UlatskawaModel.Pago" Role="Pago" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="cedula" />
-            </Principal>
-            <Dependent Role="Pago">
-              <PropertyRef Name="cedula" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Pagos__tipoPago__3B75D760">
-          <End Type="UlatskawaModel.TipoPago" Role="TipoPago" Multiplicity="0..1" />
-          <End Type="UlatskawaModel.Pago" Role="Pago" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoPago">
-              <PropertyRef Name="tipoPago1" />
-            </Principal>
-            <Dependent Role="Pago">
-              <PropertyRef Name="tipoPago" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Usuario__idTipoU__3C69FB99">
-          <End Type="UlatskawaModel.TipoUsuario" Role="TipoUsuario" Multiplicity="0..1" />
-          <End Type="UlatskawaModel.Usuario" Role="Usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoUsuario">
-              <PropertyRef Name="idTipoUsuario" />
-            </Principal>
-            <Dependent Role="Usuario">
-              <PropertyRef Name="idTipoUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="UlatskawaModelStoreContainer" CdmEntityContainer="Context">
+          <EntitySetMapping Name="Antecedentes">
+            <EntityTypeMapping TypeName="UlatskawaModel.Antecedente">
+              <MappingFragment StoreEntitySet="Antecedentes">
+                <ScalarProperty Name="idAntecedente" ColumnName="idAntecedente" />
+                <ScalarProperty Name="nombreAntecedente" ColumnName="nombreAntecedente" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bibliotecas">
+            <EntityTypeMapping TypeName="UlatskawaModel.Biblioteca">
+              <MappingFragment StoreEntitySet="Biblioteca">
+                <ScalarProperty Name="idVideo" ColumnName="idVideo" />
+                <ScalarProperty Name="tituloVideo" ColumnName="tituloVideo" />
+                <ScalarProperty Name="urlVideo" ColumnName="urlVideo" />
+                <ScalarProperty Name="descripcionVideo" ColumnName="descripcionVideo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enfermedades">
+            <EntityTypeMapping TypeName="UlatskawaModel.Enfermedade">
+              <MappingFragment StoreEntitySet="Enfermedades">
+                <ScalarProperty Name="idEnfermedad" ColumnName="idEnfermedad" />
+                <ScalarProperty Name="nombreEnfermedad" ColumnName="nombreEnfermedad" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expedientes">
+            <EntityTypeMapping TypeName="UlatskawaModel.Expediente">
+              <MappingFragment StoreEntitySet="Expedientes">
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="fechaN" ColumnName="fechaN" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="canton" ColumnName="canton" />
+                <ScalarProperty Name="distrito" ColumnName="distrito" />
+                <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
+                <ScalarProperty Name="antecedentes" ColumnName="antecedentes" />
+                <ScalarProperty Name="mediUtilizados" ColumnName="mediUtilizados" />
+                <ScalarProperty Name="anteQuirurgicos" ColumnName="anteQuirurgicos" />
+                <ScalarProperty Name="fracturas" ColumnName="fracturas" />
+                <ScalarProperty Name="anteFamiliares" ColumnName="anteFamiliares" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventarios">
+            <EntityTypeMapping TypeName="UlatskawaModel.Inventario">
+              <MappingFragment StoreEntitySet="Inventarios">
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="tipoProducto" ColumnName="tipoProducto" />
+                <ScalarProperty Name="nombreProducto" ColumnName="nombreProducto" />
+                <ScalarProperty Name="codigoBarras" ColumnName="codigoBarras" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="fechaExpiracion" ColumnName="fechaExpiracion" />
+                <ScalarProperty Name="notas" ColumnName="notas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pagos">
+            <EntityTypeMapping TypeName="UlatskawaModel.Pago">
+              <MappingFragment StoreEntitySet="Pagos">
+                <ScalarProperty Name="idPago" ColumnName="idPago" />
+                <ScalarProperty Name="tipoPago" ColumnName="tipoPago" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="banco" ColumnName="banco" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="fechaPago" ColumnName="fechaPago" />
+                <ScalarProperty Name="notas" ColumnName="notas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UlatskawaModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoPagoes">
+            <EntityTypeMapping TypeName="UlatskawaModel.TipoPago">
+              <MappingFragment StoreEntitySet="TipoPago">
+                <ScalarProperty Name="tipoPago1" ColumnName="tipoPago" />
+                <ScalarProperty Name="nombrePago" ColumnName="nombrePago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoProductoes">
+            <EntityTypeMapping TypeName="UlatskawaModel.TipoProducto">
+              <MappingFragment StoreEntitySet="TipoProducto">
+                <ScalarProperty Name="tipoProducto1" ColumnName="tipoProducto" />
+                <ScalarProperty Name="nombreTipoProducto" ColumnName="nombreTipoProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoUsuarios">
+            <EntityTypeMapping TypeName="UlatskawaModel.TipoUsuario">
+              <MappingFragment StoreEntitySet="TipoUsuario">
+                <ScalarProperty Name="idTipoUsuario" ColumnName="idTipoUsuario" />
+                <ScalarProperty Name="tipoUsuario1" ColumnName="tipoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="UlatskawaModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="contrasenna" ColumnName="contrasenna" />
+                <ScalarProperty Name="idTipoUsuario" ColumnName="idTipoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ActualizarAntecedente" FunctionName="UlatskawaModel.Store.ActualizarAntecedente" />
           <FunctionImportMapping FunctionImportName="ActualizarEnfermedad" FunctionName="UlatskawaModel.Store.ActualizarEnfermedad" />
           <FunctionImportMapping FunctionImportName="ActualizarPagos" FunctionName="UlatskawaModel.Store.ActualizarPagos" />
           <FunctionImportMapping FunctionImportName="ActualizarProductos" FunctionName="UlatskawaModel.Store.ActualizarProductos" />
           <FunctionImportMapping FunctionImportName="ActualizarUsuarios" FunctionName="UlatskawaModel.Store.ActualizarUsuarios" />
+          <FunctionImportMapping FunctionImportName="ActualizarVideo" FunctionName="UlatskawaModel.Store.ActualizarVideo" />
           <FunctionImportMapping FunctionImportName="ConsultaProducto" FunctionName="UlatskawaModel.Store.ConsultaProducto">
             <ResultMapping>
               <ComplexTypeMapping TypeName="UlatskawaModel.ConsultaProducto_Result">
@@ -960,11 +1114,22 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultaVideo" FunctionName="UlatskawaModel.Store.ConsultaVideo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UlatskawaModel.ConsultaVideo_Result">
+                <ScalarProperty Name="idVideo" ColumnName="idVideo" />
+                <ScalarProperty Name="tituloVideo" ColumnName="tituloVideo" />
+                <ScalarProperty Name="urlVideo" ColumnName="urlVideo" />
+                <ScalarProperty Name="descripcionVideo" ColumnName="descripcionVideo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InsertarAntecedente" FunctionName="UlatskawaModel.Store.InsertarAntecedente" />
           <FunctionImportMapping FunctionImportName="InsertarEnfermedad" FunctionName="UlatskawaModel.Store.InsertarEnfermedad" />
           <FunctionImportMapping FunctionImportName="InsertarPagos" FunctionName="UlatskawaModel.Store.InsertarPagos" />
           <FunctionImportMapping FunctionImportName="InsertarProducto" FunctionName="UlatskawaModel.Store.InsertarProducto" />
           <FunctionImportMapping FunctionImportName="InsertarUsuario" FunctionName="UlatskawaModel.Store.InsertarUsuario" />
+          <FunctionImportMapping FunctionImportName="InsertarVideo" FunctionName="UlatskawaModel.Store.InsertarVideo" />
           <FunctionImportMapping FunctionImportName="ListarAntecedentes" FunctionName="UlatskawaModel.Store.ListarAntecedentes">
             <ResultMapping>
               <ComplexTypeMapping TypeName="UlatskawaModel.ListarAntecedentes_Result">
@@ -1054,7 +1219,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="InsertarVideo" FunctionName="UlatskawaModel.Store.InsertarVideo" />
+          <FunctionImportMapping FunctionImportName="ListarVideos" FunctionName="UlatskawaModel.Store.ListarVideos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UlatskawaModel.ListarVideos_Result">
+                <ScalarProperty Name="idVideo" ColumnName="idVideo" />
+                <ScalarProperty Name="tituloVideo" ColumnName="tituloVideo" />
+                <ScalarProperty Name="urlVideo" ColumnName="urlVideo" />
+                <ScalarProperty Name="descripcionVideo" ColumnName="descripcionVideo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="UlatskawaModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="UlatskawaModel.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="UlatskawaModel.Store.sp_dropdiagram" />
@@ -1079,127 +1253,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="UlatskawaModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="UlatskawaModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="Antecedentes">
-            <EntityTypeMapping TypeName="UlatskawaModel.Antecedente">
-              <MappingFragment StoreEntitySet="Antecedentes">
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-                <ScalarProperty Name="nombreAntecedente" ColumnName="nombreAntecedente" />
-                <ScalarProperty Name="idAntecedente" ColumnName="idAntecedente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Bibliotecas">
-            <EntityTypeMapping TypeName="UlatskawaModel.Biblioteca">
-              <MappingFragment StoreEntitySet="Biblioteca">
-                <ScalarProperty Name="descripcionVideo" ColumnName="descripcionVideo" />
-                <ScalarProperty Name="urlVideo" ColumnName="urlVideo" />
-                <ScalarProperty Name="tituloVideo" ColumnName="tituloVideo" />
-                <ScalarProperty Name="idVideo" ColumnName="idVideo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Enfermedades">
-            <EntityTypeMapping TypeName="UlatskawaModel.Enfermedade">
-              <MappingFragment StoreEntitySet="Enfermedades">
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-                <ScalarProperty Name="nombreEnfermedad" ColumnName="nombreEnfermedad" />
-                <ScalarProperty Name="idEnfermedad" ColumnName="idEnfermedad" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Expedientes">
-            <EntityTypeMapping TypeName="UlatskawaModel.Expediente">
-              <MappingFragment StoreEntitySet="Expedientes">
-                <ScalarProperty Name="anteFamiliares" ColumnName="anteFamiliares" />
-                <ScalarProperty Name="fracturas" ColumnName="fracturas" />
-                <ScalarProperty Name="anteQuirurgicos" ColumnName="anteQuirurgicos" />
-                <ScalarProperty Name="mediUtilizados" ColumnName="mediUtilizados" />
-                <ScalarProperty Name="antecedentes" ColumnName="antecedentes" />
-                <ScalarProperty Name="diagnostico" ColumnName="diagnostico" />
-                <ScalarProperty Name="distrito" ColumnName="distrito" />
-                <ScalarProperty Name="canton" ColumnName="canton" />
-                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
-                <ScalarProperty Name="fechaN" ColumnName="fechaN" />
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Inventarios">
-            <EntityTypeMapping TypeName="UlatskawaModel.Inventario">
-              <MappingFragment StoreEntitySet="Inventarios">
-                <ScalarProperty Name="notas" ColumnName="notas" />
-                <ScalarProperty Name="fechaExpiracion" ColumnName="fechaExpiracion" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="codigoBarras" ColumnName="codigoBarras" />
-                <ScalarProperty Name="nombreProducto" ColumnName="nombreProducto" />
-                <ScalarProperty Name="tipoProducto" ColumnName="tipoProducto" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pagos">
-            <EntityTypeMapping TypeName="UlatskawaModel.Pago">
-              <MappingFragment StoreEntitySet="Pagos">
-                <ScalarProperty Name="notas" ColumnName="notas" />
-                <ScalarProperty Name="fechaPago" ColumnName="fechaPago" />
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-                <ScalarProperty Name="banco" ColumnName="banco" />
-                <ScalarProperty Name="monto" ColumnName="monto" />
-                <ScalarProperty Name="tipoPago" ColumnName="tipoPago" />
-                <ScalarProperty Name="idPago" ColumnName="idPago" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="UlatskawaModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoPagoes">
-            <EntityTypeMapping TypeName="UlatskawaModel.TipoPago">
-              <MappingFragment StoreEntitySet="TipoPago">
-                <ScalarProperty Name="nombrePago" ColumnName="nombrePago" />
-                <ScalarProperty Name="tipoPago1" ColumnName="tipoPago" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoProductoes">
-            <EntityTypeMapping TypeName="UlatskawaModel.TipoProducto">
-              <MappingFragment StoreEntitySet="TipoProducto">
-                <ScalarProperty Name="nombreTipoProducto" ColumnName="nombreTipoProducto" />
-                <ScalarProperty Name="tipoProducto1" ColumnName="tipoProducto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoUsuarios">
-            <EntityTypeMapping TypeName="UlatskawaModel.TipoUsuario">
-              <MappingFragment StoreEntitySet="TipoUsuario">
-                <ScalarProperty Name="tipoUsuario1" ColumnName="tipoUsuario" />
-                <ScalarProperty Name="idTipoUsuario" ColumnName="idTipoUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="UlatskawaModel.Usuario">
-              <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="idTipoUsuario" ColumnName="idTipoUsuario" />
-                <ScalarProperty Name="contrasenna" ColumnName="contrasenna" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

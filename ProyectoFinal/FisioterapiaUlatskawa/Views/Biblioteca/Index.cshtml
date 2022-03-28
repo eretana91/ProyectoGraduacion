@@ -1,13 +1,11 @@
-﻿@model List<FisioterapiaUlatskawa.Models.BibliotecaViewModel>
+﻿@model IEnumerable<FisioterapiaUlatskawa.Models.BibliotecaViewModel>
 
-@{
-    ViewBag.Title = "Index";
-}
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <h2>Crear Video</h2>
 
 <div style="margin-top: 10px">
-    <a href="@Url.Action("Create", "Biblioteca")" class="btn btn-primary btn-full  mt-sm-3">
+    <a href="@Url.Action("Create","Biblioteca")" class="btn btn-primary btn-full  mt-sm-3">
         <i class="fa fa-plus-circle"></i> Nuevo
     </a>
 </div>
@@ -17,7 +15,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-
+   
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -25,18 +23,16 @@
                 <thead>
                     <tr>
                         <th>
-                            Título
+                            @Html.DisplayNameFor(model => model.titulo)
                         </th>
                         <th>
-                           Descripción
+                            @Html.DisplayNameFor(model => model.descripcion)
                         </th>
                         <th>
-                            Video
+                            @Html.DisplayNameFor(model => model.url)
                         </th>
-                        <th>
-                            Acción
-                        </th>
-
+                        
+                        <th>op</th>
                     </tr>
                 </thead>
 
@@ -46,19 +42,22 @@
                     {
                         <tr>
                             <td>
-                                @item.titulo
+                                @Html.DisplayFor(modelItem => item.titulo)
                             </td>
                             <td>
-                                @item.descripcion
+                                @Html.DisplayFor(modelItem => item.descripcion)
                             </td>
-                            <td><iframe width="360" height="115" src="https://www.youtube.com/embed/GpZu9htCOig" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </td>
-
                             <td>
-                                <a href="@Url.Action("Edit", "Biblioteca")
-                                   class="btn btn-primary btn-sm btn-full" title="Editar">
+                                @Html.DisplayFor(modelItem => item.url)
+                            </td>
+                          
+                            <td>
+                                <a href="@Url.Action("Edit", "Biblioteca", new {
+                            pIdVideo = item.idVideo })"
+                                   class="btn btn-info btn-sm btn-full" title="Editar">
                                     Editar
                                 </a>
-                                
+                               
                             </td>
                         </tr>
                     }
@@ -67,7 +66,6 @@
         </div>
     </div>
 </div>
-
 
 
 <script src="~/Tema/vendor/datatables/jquery.dataTables.min.js"></script>
