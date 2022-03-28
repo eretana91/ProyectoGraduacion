@@ -180,18 +180,18 @@ namespace FisioterapiaUlatskawa.Controllers
 
             }
 
-            List<SelectListItem> ListaTipoProducto = new List<SelectListItem>();
+            //List<SelectListItem> ListaTipoProducto = new List<SelectListItem>();
 
-            var result = context.ListarTipoProducto().ToList();
+            //var result = context.ListarTipoProducto().ToList();
 
-            foreach (var dato in result)
-            {
-                ListaTipoProducto.Add(new SelectListItem
-                {
-                    Value = dato.TipoProducto.ToString(),
-                    Text = dato.nombreTipoProducto
-                });
-            };
+            //foreach (var dato in result)
+            //{
+            //    ListaTipoProducto.Add(new SelectListItem
+            //    {
+            //        Value = dato.TipoProducto.ToString(),
+            //        Text = dato.nombreTipoProducto
+            //    });
+            //};
 
             //bibliotecaVM.Lista = ListaTipoProducto;
 
