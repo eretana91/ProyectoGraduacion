@@ -247,25 +247,13 @@ namespace FisioterapiaUlatskawa.DataModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultaVideo_Result>("ConsultaVideo", pTituloVideoParameter);
         }
     
-        public virtual ObjectResult<string> EliminaVideo(Nullable<int> pIdVideo, string pTituloVideo, string pUrlVideo, string pDescripcionVideo)
+        public virtual ObjectResult<string> EliminaVideo(Nullable<int> pIdVideo)
         {
             var pIdVideoParameter = pIdVideo.HasValue ?
                 new ObjectParameter("pIdVideo", pIdVideo) :
                 new ObjectParameter("pIdVideo", typeof(int));
     
-            var pTituloVideoParameter = pTituloVideo != null ?
-                new ObjectParameter("pTituloVideo", pTituloVideo) :
-                new ObjectParameter("pTituloVideo", typeof(string));
-    
-            var pUrlVideoParameter = pUrlVideo != null ?
-                new ObjectParameter("pUrlVideo", pUrlVideo) :
-                new ObjectParameter("pUrlVideo", typeof(string));
-    
-            var pDescripcionVideoParameter = pDescripcionVideo != null ?
-                new ObjectParameter("pDescripcionVideo", pDescripcionVideo) :
-                new ObjectParameter("pDescripcionVideo", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("EliminaVideo", pIdVideoParameter, pTituloVideoParameter, pUrlVideoParameter, pDescripcionVideoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("EliminaVideo", pIdVideoParameter);
         }
     
         public virtual ObjectResult<string> InsertarAntecedente(Nullable<int> pIdAntecedente, string pNombreAntecedente, string pCedula)

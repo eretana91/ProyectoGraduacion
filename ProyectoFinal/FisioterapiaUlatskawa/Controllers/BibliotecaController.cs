@@ -36,7 +36,7 @@ namespace FisioterapiaUlatskawa.Controllers
                 foreach (var dato in result)
                 {
                     listado.Add(new BibliotecaViewModel
-                    {
+                    {   idVideo=dato.idVideo,
                         titulo = dato.tituloVideo,
                         url = dato.urlVideo,
                         descripcion = dato.descripcionVideo,
@@ -283,23 +283,22 @@ namespace FisioterapiaUlatskawa.Controllers
       
 
         // POST: Clases/Delete
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete([Bind(Include = "idVideo,url,titulo,descripcion")] BibliotecaViewModel bibliotecaVM)
+        
+        
+        public ActionResult Delete(int pIdVideo)
         {
+
+           
+            
             if (ModelState.IsValid)
             {
                 try
                 {
 
 
-                    var result = context.EliminaVideo(
-                        bibliotecaVM.idVideo,
-                        bibliotecaVM.titulo,
-                        bibliotecaVM.url,
-                        bibliotecaVM.descripcion
-                        ).FirstOrDefault();
+                        context.EliminaVideo(pIdVideo).FirstOrDefault();
 
+                    
                     TempData["Message"] = "Video eliminado correctamente";
 
 
@@ -320,7 +319,7 @@ namespace FisioterapiaUlatskawa.Controllers
                 }
             }
 
-            return View(bibliotecaVM);
+            return View();
         }
         
 
