@@ -135,8 +135,8 @@ namespace FisioterapiaUlatskawa.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "tituloVideo,urlVideo,descripcionVideo")] BibliotecaViewModel bibliotecaVM)
+     
+        public ActionResult Create([Bind(Include = "url,titulo,descripcion")] BibliotecaViewModel bibliotecaVM)
         {
             if (ModelState.IsValid)
             {
