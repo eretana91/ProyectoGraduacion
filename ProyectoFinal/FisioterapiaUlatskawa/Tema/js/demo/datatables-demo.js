@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#dataTable').DataTable({
 
         "language": {
-            {
+            
             "processing": "Procesando...",
             "lengthMenu": "Mostrar _MENU_ registros",
             "zeroRecords": "No se encontraron resultados",

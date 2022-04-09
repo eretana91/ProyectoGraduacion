@@ -45,5 +45,21 @@ namespace FisioterapiaUlatskawa.Models
         [Required(ErrorMessage = "El campo de {0} es obligatorio.")]
         [StringLength(maximumLength: 200, ErrorMessage = "El {0} no puede contener más de {1} dígitos.")]
         public string notas { get; set; }
+
+        [Display(Name = "Desde")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+
+        public Nullable<System.DateTime> fechaDesde { get; set; }
+
+
+        [Display(Name = "Hasta")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+
+        public Nullable<System.DateTime> fechaHasta { get; set; }
+
+
+        public PagosViewModel Pagos { get; set; }
     }
 }

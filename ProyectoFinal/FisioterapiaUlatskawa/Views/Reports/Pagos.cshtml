@@ -1,0 +1,85 @@
+﻿@model FisioterapiaUlatskawa.Models.PagosViewModel
+
+@{
+    ViewBag.Title = "Reporte de Pagos";
+}
+
+
+
+<div style="margin-bottom: 10px">
+    <h2>Reporte de Pagos</h2>
+</div>
+
+
+    <div class="col-sm-12 col-md-3 alinear">
+        <div class="form-group">
+            @Html.LabelFor(model => model.fechaDesde, htmlAttributes: new { @class = "control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fechaDesde, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fechaDesde, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-3 alinear">
+        <div class="form-group">
+            @Html.LabelFor(model => model.fechaHasta, htmlAttributes: new { @class = "control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fechaHasta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fechaHasta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <button type="button" id="btnDescargar" class="btn btn-success ml-4 mt-2 ">Buscar</button>
+
+    </div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
+
+    <script type="text/javascript" async="async">
+        function mostrarCargando() {
+            $("#cargando").show();
+        }
+
+        function ocultarCargando() {
+            $("#cargando").hide();
+        }
+
+        $(document).on('click', '#btnDescargar', function () {
+
+
+            var desde = $("#fechaDesde").val();
+            var hasta = $("#fechaHasta").val();
+
+            console.log(desde)
+            if (desde === "" && hasta === "") {
+                alert("Las fechas son requeridas")
+            } else {
+                var dirUrl = '@Url.Action("DownloadReportPagos", "Reports")?fechaDesde=' + desde + '&fechaHasta=' + hasta;
+
+                 window.location.href = dirUrl;
+                
+            }
+
+
+
+        });
+
+
+
+
+
+
+    </script>
+
+}
+
+
+

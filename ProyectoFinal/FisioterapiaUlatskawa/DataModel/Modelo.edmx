@@ -30,6 +30,18 @@
           <Property Name="nombreEnfermedad" Type="varchar" MaxLength="200" />
           <Property Name="cedula" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="Start" Type="datetime" />
+          <Property Name="End" Type="datetime" />
+          <Property Name="ThemeColor" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsFullDay" Type="bit" />
+        </EntityType>
         <EntityType Name="Expedientes">
           <Key>
             <PropertyRef Name="cedula" />
@@ -70,6 +82,18 @@
           <Property Name="cedula" Type="varchar" MaxLength="50" />
           <Property Name="fechaPago" Type="datetime" />
           <Property Name="notas" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="SchedulerRecurringEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="varchar" MaxLength="100" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="EventPID" Type="int" />
+          <Property Name="RecType" Type="varchar" MaxLength="50" />
+          <Property Name="EventLength" Type="float" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -208,6 +232,12 @@
           <Parameter Name="pNombreEnfermedad" Type="varchar" Mode="In" />
           <Parameter Name="pCedula" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="ActualizarEventos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pIdP" Type="int" Mode="In" />
+          <Parameter Name="pText" Type="varchar" Mode="In" />
+          <Parameter Name="pStartDate" Type="datetime" Mode="In" />
+          <Parameter Name="pEndDate" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="ActualizarPagos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pIdPago" Type="int" Mode="In" />
           <Parameter Name="pTipoPago" Type="int" Mode="In" />
@@ -259,6 +289,9 @@
         <Function Name="ConsultaVideo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pTituloVideo" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="EliminarEventos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pIdP" Type="int" Mode="In" />
+        </Function>
         <Function Name="EliminaVideo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pIdVideo" Type="int" Mode="In" />
         </Function>
@@ -289,6 +322,14 @@
           <Parameter Name="pFechaExpiracion" Type="date" Mode="In" />
           <Parameter Name="pNotas" Type="varchar(max)" Mode="In" />
         </Function>
+        <Function Name="InsertarSchema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pText" Type="varchar" Mode="In" />
+          <Parameter Name="pStartDate" Type="datetime" Mode="In" />
+          <Parameter Name="pEndDate" Type="datetime" Mode="In" />
+          <Parameter Name="pEvent" Type="int" Mode="In" />
+          <Parameter Name="RecType" Type="varchar" Mode="In" />
+          <Parameter Name="EventLong" Type="float" Mode="In" />
+        </Function>
         <Function Name="InsertarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pCedula" Type="varchar" Mode="In" />
           <Parameter Name="pNombre" Type="varchar" Mode="In" />
@@ -313,6 +354,10 @@
           <Parameter Name="pCedula" Type="varchar" Mode="In" />
         </Function>
         <Function Name="ListarPagos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ListarPagosFechas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pDesde" Type="datetime" Mode="In" />
+          <Parameter Name="pHasta" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="ListarProdcutos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ListarTipoPagos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ListarTipoProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -373,9 +418,11 @@
           <EntitySet Name="Antecedentes" EntityType="Self.Antecedentes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Biblioteca" EntityType="Self.Biblioteca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enfermedades" EntityType="Self.Enfermedades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expedientes" EntityType="Self.Expedientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventarios" EntityType="Self.Inventarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pagos" EntityType="Self.Pagos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchedulerRecurringEvent" EntityType="Self.SchedulerRecurringEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoPago" EntityType="Self.TipoPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" Schema="dbo" store:Type="Tables" />
@@ -415,7 +462,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UlatskawaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Antecedente">
+        <EntityType Name="Antecedentes">
           <Key>
             <PropertyRef Name="idAntecedente" />
           </Key>
@@ -433,7 +480,7 @@
           <Property Name="urlVideo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="descripcionVideo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Enfermedade">
+        <EntityType Name="Enfermedades">
           <Key>
             <PropertyRef Name="idEnfermedad" />
           </Key>
@@ -442,7 +489,19 @@
           <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Enfermeda__cedul__38996AB5" FromRole="Enfermedades" ToRole="Usuario" />
         </EntityType>
-        <EntityType Name="Expediente">
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Start" Type="DateTime" Precision="3" />
+          <Property Name="End" Type="DateTime" Precision="3" />
+          <Property Name="ThemeColor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsFullDay" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Expedientes">
           <Key>
             <PropertyRef Name="cedula" />
           </Key>
@@ -459,7 +518,7 @@
           <Property Name="anteFamiliares" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuarios_Expedientes" FromRole="Expedientes" ToRole="Usuario" />
         </EntityType>
-        <EntityType Name="Inventario">
+        <EntityType Name="Inventarios">
           <Key>
             <PropertyRef Name="idProducto" />
           </Key>
@@ -473,7 +532,7 @@
           <Property Name="notas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TipoProducto1" Relationship="Self.FK__Inventari__tipoP__398D8EEE" FromRole="Inventarios" ToRole="TipoProducto" />
         </EntityType>
-        <EntityType Name="Pago">
+        <EntityType Name="Pagos">
           <Key>
             <PropertyRef Name="idPago" />
           </Key>
@@ -487,7 +546,19 @@
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Pagos__cedula__3A81B327" FromRole="Pagos" ToRole="Usuario" />
           <NavigationProperty Name="TipoPago1" Relationship="Self.FK__Pagos__tipoPago__3B75D760" FromRole="Pagos" ToRole="TipoPago" />
         </EntityType>
-        <EntityType Name="sysdiagram">
+        <EntityType Name="SchedulerRecurringEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="EventPID" Type="Int32" />
+          <Property Name="RecType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EventLength" Type="Double" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
@@ -519,7 +590,7 @@
           </Key>
           <Property Name="idTipoUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tipoUsuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuario__idTipoU__3C69FB99" FromRole="TipoUsuario" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__idTipoU__3C69FB99" FromRole="TipoUsuario" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -534,13 +605,13 @@
           <Property Name="idTipoUsuario" Type="Int32" />
           <NavigationProperty Name="Antecedentes" Relationship="Self.FK__Anteceden__cedul__37A5467C" FromRole="Usuario" ToRole="Antecedentes" />
           <NavigationProperty Name="Enfermedades" Relationship="Self.FK__Enfermeda__cedul__38996AB5" FromRole="Usuario" ToRole="Enfermedades" />
-          <NavigationProperty Name="Expediente" Relationship="Self.FK_Usuarios_Expedientes" FromRole="Usuario" ToRole="Expedientes" />
+          <NavigationProperty Name="Expedientes" Relationship="Self.FK_Usuarios_Expedientes" FromRole="Usuario" ToRole="Expedientes" />
           <NavigationProperty Name="Pagos" Relationship="Self.FK__Pagos__cedula__3A81B327" FromRole="Usuario" ToRole="Pagos" />
           <NavigationProperty Name="TipoUsuario" Relationship="Self.FK__Usuario__idTipoU__3C69FB99" FromRole="Usuario" ToRole="TipoUsuario" />
         </EntityType>
         <Association Name="FK__Anteceden__cedul__37A5467C">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Antecedentes" Type="Self.Antecedente" Multiplicity="*" />
+          <End Role="Antecedentes" Type="Self.Antecedentes" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="cedula" />
@@ -552,7 +623,7 @@
         </Association>
         <Association Name="FK__Enfermeda__cedul__38996AB5">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Enfermedades" Type="Self.Enfermedade" Multiplicity="*" />
+          <End Role="Enfermedades" Type="Self.Enfermedades" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="cedula" />
@@ -564,7 +635,7 @@
         </Association>
         <Association Name="FK_Usuarios_Expedientes">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Expedientes" Type="Self.Expediente" Multiplicity="0..1" />
+          <End Role="Expedientes" Type="Self.Expedientes" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="cedula" />
@@ -576,7 +647,7 @@
         </Association>
         <Association Name="FK__Inventari__tipoP__398D8EEE">
           <End Role="TipoProducto" Type="Self.TipoProducto" Multiplicity="0..1" />
-          <End Role="Inventarios" Type="Self.Inventario" Multiplicity="*" />
+          <End Role="Inventarios" Type="Self.Inventarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoProducto">
               <PropertyRef Name="tipoProducto1" />
@@ -588,7 +659,7 @@
         </Association>
         <Association Name="FK__Pagos__cedula__3A81B327">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
-          <End Role="Pagos" Type="Self.Pago" Multiplicity="*" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="cedula" />
@@ -600,7 +671,7 @@
         </Association>
         <Association Name="FK__Pagos__tipoPago__3B75D760">
           <End Role="TipoPago" Type="Self.TipoPago" Multiplicity="0..1" />
-          <End Role="Pagos" Type="Self.Pago" Multiplicity="*" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoPago">
               <PropertyRef Name="tipoPago1" />
@@ -623,44 +694,46 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Context" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Antecedentes" EntityType="Self.Antecedente" />
-          <EntitySet Name="Bibliotecas" EntityType="Self.Biblioteca" />
-          <EntitySet Name="Enfermedades" EntityType="Self.Enfermedade" />
-          <EntitySet Name="Expedientes" EntityType="Self.Expediente" />
-          <EntitySet Name="Inventarios" EntityType="Self.Inventario" />
-          <EntitySet Name="Pagos" EntityType="Self.Pago" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="TipoPagoes" EntityType="Self.TipoPago" />
-          <EntitySet Name="TipoProductoes" EntityType="Self.TipoProducto" />
-          <EntitySet Name="TipoUsuarios" EntityType="Self.TipoUsuario" />
-          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <EntitySet Name="Antecedentes" EntityType="Self.Antecedentes" />
+          <EntitySet Name="Biblioteca" EntityType="Self.Biblioteca" />
+          <EntitySet Name="Enfermedades" EntityType="Self.Enfermedades" />
+          <EntitySet Name="Events" EntityType="Self.Events" />
+          <EntitySet Name="Expedientes" EntityType="Self.Expedientes" />
+          <EntitySet Name="Inventarios" EntityType="Self.Inventarios" />
+          <EntitySet Name="Pagos" EntityType="Self.Pagos" />
+          <EntitySet Name="SchedulerRecurringEvent" EntityType="Self.SchedulerRecurringEvent" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TipoPago" EntityType="Self.TipoPago" />
+          <EntitySet Name="TipoProducto" EntityType="Self.TipoProducto" />
+          <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
           <AssociationSet Name="FK__Anteceden__cedul__37A5467C" Association="Self.FK__Anteceden__cedul__37A5467C">
-            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Antecedentes" EntitySet="Antecedentes" />
           </AssociationSet>
           <AssociationSet Name="FK__Enfermeda__cedul__38996AB5" Association="Self.FK__Enfermeda__cedul__38996AB5">
-            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Enfermedades" EntitySet="Enfermedades" />
           </AssociationSet>
           <AssociationSet Name="FK_Usuarios_Expedientes" Association="Self.FK_Usuarios_Expedientes">
-            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Expedientes" EntitySet="Expedientes" />
           </AssociationSet>
           <AssociationSet Name="FK__Inventari__tipoP__398D8EEE" Association="Self.FK__Inventari__tipoP__398D8EEE">
-            <End Role="TipoProducto" EntitySet="TipoProductoes" />
+            <End Role="TipoProducto" EntitySet="TipoProducto" />
             <End Role="Inventarios" EntitySet="Inventarios" />
           </AssociationSet>
           <AssociationSet Name="FK__Pagos__cedula__3A81B327" Association="Self.FK__Pagos__cedula__3A81B327">
-            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK__Pagos__tipoPago__3B75D760" Association="Self.FK__Pagos__tipoPago__3B75D760">
-            <End Role="TipoPago" EntitySet="TipoPagoes" />
+            <End Role="TipoPago" EntitySet="TipoPago" />
             <End Role="Pagos" EntitySet="Pagos" />
           </AssociationSet>
           <AssociationSet Name="FK__Usuario__idTipoU__3C69FB99" Association="Self.FK__Usuario__idTipoU__3C69FB99">
-            <End Role="TipoUsuario" EntitySet="TipoUsuarios" />
-            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
           <FunctionImport Name="ActualizarAntecedente" ReturnType="Collection(String)">
             <Parameter Name="pIdAntecedentes" Mode="In" Type="Int32" />
@@ -671,6 +744,12 @@
             <Parameter Name="pIdEnfermedad" Mode="In" Type="Int32" />
             <Parameter Name="pNombreEnfermedad" Mode="In" Type="String" />
             <Parameter Name="pCedula" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ActualizarEventos" ReturnType="Collection(String)">
+            <Parameter Name="pIdP" Mode="In" Type="Int32" />
+            <Parameter Name="pText" Mode="In" Type="String" />
+            <Parameter Name="pStartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="pEndDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="ActualizarPagos" ReturnType="Collection(String)">
             <Parameter Name="pIdPago" Mode="In" Type="Int32" />
@@ -723,6 +802,9 @@
           <FunctionImport Name="ConsultaVideo" ReturnType="Collection(UlatskawaModel.ConsultaVideo_Result)">
             <Parameter Name="pTituloVideo" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="EliminarEventos" ReturnType="Collection(String)">
+            <Parameter Name="pIdP" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="EliminaVideo" ReturnType="Collection(String)">
             <Parameter Name="pIdVideo" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -752,6 +834,14 @@
             <Parameter Name="pFechaExpiracion" Mode="In" Type="DateTime" />
             <Parameter Name="pNotas" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="InsertarSchema" ReturnType="Collection(String)">
+            <Parameter Name="pText" Mode="In" Type="String" />
+            <Parameter Name="pStartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="pEndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="pEvent" Mode="In" Type="Int32" />
+            <Parameter Name="RecType" Mode="In" Type="String" />
+            <Parameter Name="EventLong" Mode="In" Type="Double" />
+          </FunctionImport>
           <FunctionImport Name="InsertarUsuario" ReturnType="Collection(String)">
             <Parameter Name="pCedula" Mode="In" Type="String" />
             <Parameter Name="pNombre" Mode="In" Type="String" />
@@ -776,6 +866,10 @@
             <Parameter Name="pCedula" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ListarPagos" ReturnType="Collection(UlatskawaModel.ListarPagos_Result)" />
+          <FunctionImport Name="ListarPagosFechas" ReturnType="Collection(UlatskawaModel.ListarPagosFechas_Result)">
+            <Parameter Name="pDesde" Mode="In" Type="DateTime" />
+            <Parameter Name="pHasta" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <FunctionImport Name="ListarProdcutos" ReturnType="Collection(UlatskawaModel.ListarProdcutos_Result)" />
           <FunctionImport Name="ListarTipoPagos" ReturnType="Collection(UlatskawaModel.ListarTipoPagos_Result)" />
           <FunctionImport Name="ListarTipoProducto" ReturnType="Collection(UlatskawaModel.ListarTipoProducto_Result)" />
@@ -885,6 +979,16 @@
           <Property Type="DateTime" Name="fechaPago" Nullable="true" Precision="23" />
           <Property Type="String" Name="notas" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="ListarPagosFechas_Result">
+          <Property Type="Int32" Name="idPago" Nullable="false" />
+          <Property Type="Int32" Name="tipoPago" Nullable="true" />
+          <Property Type="Double" Name="monto" Nullable="true" />
+          <Property Type="String" Name="banco" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="cedula" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fechaPago" Nullable="true" Precision="23" />
+          <Property Type="String" Name="notas" Nullable="true" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
         <ComplexType Name="ListarProdcutos_Result">
           <Property Type="Int32" Name="idProducto" Nullable="false" />
           <Property Type="String" Name="nombreDelProducto" Nullable="true" MaxLength="100" />
@@ -937,7 +1041,7 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="UlatskawaModelStoreContainer" CdmEntityContainer="Context">
           <EntitySetMapping Name="Antecedentes">
-            <EntityTypeMapping TypeName="UlatskawaModel.Antecedente">
+            <EntityTypeMapping TypeName="UlatskawaModel.Antecedentes">
               <MappingFragment StoreEntitySet="Antecedentes">
                 <ScalarProperty Name="idAntecedente" ColumnName="idAntecedente" />
                 <ScalarProperty Name="nombreAntecedente" ColumnName="nombreAntecedente" />
@@ -945,7 +1049,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Bibliotecas">
+          <EntitySetMapping Name="Biblioteca">
             <EntityTypeMapping TypeName="UlatskawaModel.Biblioteca">
               <MappingFragment StoreEntitySet="Biblioteca">
                 <ScalarProperty Name="idVideo" ColumnName="idVideo" />
@@ -956,7 +1060,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Enfermedades">
-            <EntityTypeMapping TypeName="UlatskawaModel.Enfermedade">
+            <EntityTypeMapping TypeName="UlatskawaModel.Enfermedades">
               <MappingFragment StoreEntitySet="Enfermedades">
                 <ScalarProperty Name="idEnfermedad" ColumnName="idEnfermedad" />
                 <ScalarProperty Name="nombreEnfermedad" ColumnName="nombreEnfermedad" />
@@ -964,8 +1068,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="UlatskawaModel.Events">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+                <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Expedientes">
-            <EntityTypeMapping TypeName="UlatskawaModel.Expediente">
+            <EntityTypeMapping TypeName="UlatskawaModel.Expedientes">
               <MappingFragment StoreEntitySet="Expedientes">
                 <ScalarProperty Name="cedula" ColumnName="cedula" />
                 <ScalarProperty Name="fechaN" ColumnName="fechaN" />
@@ -982,7 +1099,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Inventarios">
-            <EntityTypeMapping TypeName="UlatskawaModel.Inventario">
+            <EntityTypeMapping TypeName="UlatskawaModel.Inventarios">
               <MappingFragment StoreEntitySet="Inventarios">
                 <ScalarProperty Name="idProducto" ColumnName="idProducto" />
                 <ScalarProperty Name="tipoProducto" ColumnName="tipoProducto" />
@@ -996,7 +1113,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pagos">
-            <EntityTypeMapping TypeName="UlatskawaModel.Pago">
+            <EntityTypeMapping TypeName="UlatskawaModel.Pagos">
               <MappingFragment StoreEntitySet="Pagos">
                 <ScalarProperty Name="idPago" ColumnName="idPago" />
                 <ScalarProperty Name="tipoPago" ColumnName="tipoPago" />
@@ -1008,8 +1125,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SchedulerRecurringEvent">
+            <EntityTypeMapping TypeName="UlatskawaModel.SchedulerRecurringEvent">
+              <MappingFragment StoreEntitySet="SchedulerRecurringEvent">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="EventPID" ColumnName="EventPID" />
+                <ScalarProperty Name="RecType" ColumnName="RecType" />
+                <ScalarProperty Name="EventLength" ColumnName="EventLength" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="UlatskawaModel.sysdiagram">
+            <EntityTypeMapping TypeName="UlatskawaModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1019,7 +1149,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TipoPagoes">
+          <EntitySetMapping Name="TipoPago">
             <EntityTypeMapping TypeName="UlatskawaModel.TipoPago">
               <MappingFragment StoreEntitySet="TipoPago">
                 <ScalarProperty Name="tipoPago1" ColumnName="tipoPago" />
@@ -1027,7 +1157,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TipoProductoes">
+          <EntitySetMapping Name="TipoProducto">
             <EntityTypeMapping TypeName="UlatskawaModel.TipoProducto">
               <MappingFragment StoreEntitySet="TipoProducto">
                 <ScalarProperty Name="tipoProducto1" ColumnName="tipoProducto" />
@@ -1035,7 +1165,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TipoUsuarios">
+          <EntitySetMapping Name="TipoUsuario">
             <EntityTypeMapping TypeName="UlatskawaModel.TipoUsuario">
               <MappingFragment StoreEntitySet="TipoUsuario">
                 <ScalarProperty Name="idTipoUsuario" ColumnName="idTipoUsuario" />
@@ -1043,7 +1173,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios">
+          <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="UlatskawaModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
                 <ScalarProperty Name="cedula" ColumnName="cedula" />
@@ -1058,6 +1188,7 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ActualizarAntecedente" FunctionName="UlatskawaModel.Store.ActualizarAntecedente" />
           <FunctionImportMapping FunctionImportName="ActualizarEnfermedad" FunctionName="UlatskawaModel.Store.ActualizarEnfermedad" />
+          <FunctionImportMapping FunctionImportName="ActualizarEventos" FunctionName="UlatskawaModel.Store.ActualizarEventos" />
           <FunctionImportMapping FunctionImportName="ActualizarPagos" FunctionName="UlatskawaModel.Store.ActualizarPagos" />
           <FunctionImportMapping FunctionImportName="ActualizarProductos" FunctionName="UlatskawaModel.Store.ActualizarProductos" />
           <FunctionImportMapping FunctionImportName="ActualizarUsuarios" FunctionName="UlatskawaModel.Store.ActualizarUsuarios" />
@@ -1130,11 +1261,13 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EliminarEventos" FunctionName="UlatskawaModel.Store.EliminarEventos" />
           <FunctionImportMapping FunctionImportName="EliminaVideo" FunctionName="UlatskawaModel.Store.EliminaVideo" />
           <FunctionImportMapping FunctionImportName="InsertarAntecedente" FunctionName="UlatskawaModel.Store.InsertarAntecedente" />
           <FunctionImportMapping FunctionImportName="InsertarEnfermedad" FunctionName="UlatskawaModel.Store.InsertarEnfermedad" />
           <FunctionImportMapping FunctionImportName="InsertarPagos" FunctionName="UlatskawaModel.Store.InsertarPagos" />
           <FunctionImportMapping FunctionImportName="InsertarProducto" FunctionName="UlatskawaModel.Store.InsertarProducto" />
+          <FunctionImportMapping FunctionImportName="InsertarSchema" FunctionName="UlatskawaModel.Store.InsertarSchema" />
           <FunctionImportMapping FunctionImportName="InsertarUsuario" FunctionName="UlatskawaModel.Store.InsertarUsuario" />
           <FunctionImportMapping FunctionImportName="InsertarVideo" FunctionName="UlatskawaModel.Store.InsertarVideo" />
           <FunctionImportMapping FunctionImportName="ListarAntecedentes" FunctionName="UlatskawaModel.Store.ListarAntecedentes">
@@ -1179,6 +1312,20 @@
                 <ScalarProperty Name="cedula" ColumnName="cedula" />
                 <ScalarProperty Name="fechaPago" ColumnName="fechaPago" />
                 <ScalarProperty Name="notas" ColumnName="notas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ListarPagosFechas" FunctionName="UlatskawaModel.Store.ListarPagosFechas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UlatskawaModel.ListarPagosFechas_Result">
+                <ScalarProperty Name="idPago" ColumnName="idPago" />
+                <ScalarProperty Name="tipoPago" ColumnName="tipoPago" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="banco" ColumnName="banco" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="fechaPago" ColumnName="fechaPago" />
+                <ScalarProperty Name="notas" ColumnName="notas" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1274,10 +1421,10 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
