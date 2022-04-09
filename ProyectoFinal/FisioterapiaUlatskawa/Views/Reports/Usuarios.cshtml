@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Reporte de Usuarios";
+}
+
+
+
+<div style="margin-bottom: 10px">
+    <h2>Usuarios</h2>
+</div>
+
+
+<button type="button" id="btnDescargar" class="btn btn-success ml-4 mt-2 ">Descargar</button>
+
+    </div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
+
+    <script type="text/javascript" async="async">
+        function mostrarCargando() {
+            $("#cargando").show();
+        }
+
+        function ocultarCargando() {
+            $("#cargando").hide();
+        }
+
+        $(document).on('click', '#btnDescargar', function () {
+
+            var dirUrl = '@Url.Action("DownloadReportUsuarios", "Reports")';
+
+            window.location.href = dirUrl;
+
+        });
+
+
+
+
+
+
+    </script>
+
+}
+
+
+

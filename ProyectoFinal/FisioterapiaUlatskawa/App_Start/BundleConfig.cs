@@ -33,6 +33,19 @@ namespace FisioterapiaUlatskawa
                      "~/Scripts/plugin/jquery-scrollbar/jquery.scrollbar.min.js"
             ));
 
+            //Calendar css file
+            bundles.Add(new StyleBundle("~/Content/fullcalendarcss").Include(
+                     "~/Content/themes/jquery.ui.all.css",
+                     "~/Content/fullcalendar.css"));
+
+            //Calendar Script file
+
+            bundles.Add(new ScriptBundle("~/bundles/fullcalendarjs").Include(
+                      "~/Scripts/jquery-ui-{version}.min.js",
+                      "~/Scripts/moment.min.js",
+                      "~/Scripts/fullcalendar.js",
+                      "~/Scripts/locale_es.js"));
+
         }
     }
 }
