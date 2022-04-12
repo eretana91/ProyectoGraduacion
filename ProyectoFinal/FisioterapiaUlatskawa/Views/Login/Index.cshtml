@@ -61,7 +61,7 @@
                                     </div>
                                     @using (Html.BeginForm("ValidaCredeciales", "Login", FormMethod.Post))
                                     {
-                                        @*@Html.AntiForgeryToken();*@
+                                        @Html.AntiForgeryToken()
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
