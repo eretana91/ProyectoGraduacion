@@ -199,6 +199,7 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Enfermedades.cs">
+<<<<<<< Updated upstream
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Events.cs">
@@ -207,6 +208,16 @@
     <Compile Include="DataModel\Expedientes.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+=======
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Events.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Expedientes.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+>>>>>>> Stashed changes
     <Compile Include="DataModel\Inventarios.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
@@ -2171,6 +2182,20 @@
     <Content Include="Views\Inventario\Create.cshtml" />
     <Content Include="Views\Inventario\Edit.cshtml" />
     <Content Include="Views\Inventario\Details.cshtml" />
+    <Content Include="Views\Biblioteca\Index.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Expedientes\Create.cshtml" />
+    <Content Include="Views\Expedientes\Delete.cshtml" />
+    <Content Include="Views\Expedientes\Details.cshtml" />
+    <Content Include="Views\Expedientes\Edit.cshtml" />
+    <Content Include="Views\Expedientes\Index.cshtml" />
+    <Content Include="Views\Biblioteca\Create.cshtml" />
+    <Content Include="Views\Biblioteca\Edit.cshtml" />
+    <Content Include="Views\Biblioteca\Delete.cshtml" />
+    <Content Include="Views\Citas\Index.cshtml" />
+    <Content Include="Views\Reports\Pagos.cshtml" />
+    <Content Include="Views\Reports\Usuarios.cshtml" />
     <Content Include="Tema\scss\navs\_global.scss" />
     <Content Include="Tema\scss\navs\_sidebar.scss" />
     <Content Include="Tema\scss\navs\_topbar.scss" />
@@ -2343,6 +2368,7 @@
     <Content Include="Tema\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Tema\vendor\jquery\jquery.min.map" />
     <Content Include="Tema\vendor\jquery\jquery.slim.min.map" />
+<<<<<<< Updated upstream
     <Content Include="Views\Biblioteca\Index.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
@@ -2357,6 +2383,8 @@
     <Content Include="Views\Citas\Index.cshtml" />
     <Content Include="Views\Reports\Pagos.cshtml" />
     <Content Include="Views\Reports\Usuarios.cshtml" />
+=======
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -59,7 +59,11 @@
             var hasta = $("#fechaHasta").val();
 
             console.log(desde)
+<<<<<<< Updated upstream
             if (desde === "" && hasta === "") {
+=======
+            if (desde === "" || hasta === "") {
+>>>>>>> Stashed changes
                 alert("Las fechas son requeridas")
             } else {
                 var dirUrl = '@Url.Action("DownloadReportPagos", "Reports")?fechaDesde=' + desde + '&fechaHasta=' + hasta;

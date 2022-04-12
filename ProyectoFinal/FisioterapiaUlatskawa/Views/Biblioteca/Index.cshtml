@@ -31,8 +31,11 @@
                         <th>
                             @Html.DisplayNameFor(model => model.url)
                         </th>
+                        @if (Session["EsAdmin"].ToString().Equals("1"))
+                        {
+                            <th>Acción</th>
+                        }
                         
-                        <th>Acción</th>
                     </tr>
                 </thead>
 
@@ -40,19 +43,21 @@
 
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.titulo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.descripcion)
-                            </td>
-                            <td>
-                               <iframe width="460" height="215" src="@item.url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                               
-                                
-                            </td>
-                          
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.titulo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descripcion)
+                        </td>
+                        <td>
+                            <iframe width="460" height="215" src="@item.url" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+                        </td>
+
+                        @if (Session["EsAdmin"].ToString().Equals("1"))
+                        {
                             <td>
                                 <a href="@Url.Action("Edit", "Biblioteca", new {
                             pTituloVideo =item.titulo.ToString()})"
@@ -65,9 +70,11 @@
                                    class="btn btn-danger btn-sm btn-full" title="Eliminar">
                                     Eliminar
                                 </a>
-                                
+
                             </td>
-                        </tr>
+                        }
+
+                    </tr>
                     }
                 </tbody>
             </table>

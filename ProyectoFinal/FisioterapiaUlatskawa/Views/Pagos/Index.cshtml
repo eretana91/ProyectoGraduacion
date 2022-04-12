@@ -10,16 +10,22 @@
 
 <body>
     <div style="margin-top: 10px">
-        <a href="@Url.Action("Create", "Pagos", new {pCedula = Session["MiCedula"] as string })" class="btn btn-primary btn-full  mt-sm-3">
-            <i class="fa fa-plus-circle"></i> Nuevo
-        </a>
+
+        @if (Session["EsAdmin"].ToString().Equals("1"))
+        {
+            <a href="@Url.Action("Create", "Pagos", new {pCedula = Session["MiCedula"] as string })" class="btn btn-primary btn-full  mt-sm-3">
+                <i class="fa fa-plus-circle"></i> Nuevo
+            </a>
+        }
+
+
     </div>
     <hr />
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+           
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -44,7 +50,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.notas)
                             </th>
-                            <th>op</th>
+                            <th>Acción</th>
                         </tr>
                     </thead>
 
@@ -72,11 +78,15 @@
                                     @Html.DisplayFor(modelItem => item.notas)
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Pagos", new {
+                                    @if (Session["EsAdmin"].ToString().Equals("1"))
+                                    {
+                                        <a href="@Url.Action("Edit", "Pagos", new {
                             pIdPago = item.idPago })"
-                                       class="btn btn-info btn-sm btn-full" title="Editar">
-                                        Editar
-                                    </a>
+                                           class="btn btn-info btn-sm btn-full" title="Editar">
+                                            Editar
+                                        </a>
+
+                                    }
                                     |
                                     <a href="@Url.Action("Details", "Pagos", new {
                             pIdPago = item.idPago})"

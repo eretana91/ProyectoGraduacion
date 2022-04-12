@@ -8,10 +8,10 @@
 
 
 
-<div >
+<div>
 
 
-   
+
     <a href="@Url.Action("Index", "Pagos", new {pCedula = @Session["pCedula"] as string })" class="btn btn-danger btn-full ">
         <i class="fa fa-arrow-alt-circle-left"></i> Atrás
     </a>
@@ -26,6 +26,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.idPago)
+        @Html.HiddenFor(model => model.cedula)
+
+
 
 
         <div class="form-group">
@@ -81,6 +84,33 @@
 }
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#monto').on('input', function (event) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+
+        var data = '@TempData["ErrorMessage"]';
+
+        if (data === "") {
+            console.log("Empty string")
+        } else {
+            ErrorShowMessage(data);
+        }
+
+        var message = '@TempData["Message"]';
+
+        console.log(message);
+
+        if (message === "" || message == "") {
+            console.log("Empty string")
+        } else {
+            SuccessShowMessage(message);
+        }
+    });
+
+
+</script>

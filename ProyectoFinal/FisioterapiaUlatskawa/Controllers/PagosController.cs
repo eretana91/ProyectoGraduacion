@@ -24,9 +24,19 @@ namespace FisioterapiaUlatskawa.Controllers
         /******************************************************/
         // Metodos CRUD
         #region GET: Pagos
-        public ActionResult Index(string pCedula)
+        public ActionResult Index()
         {
-            Session["pCedula"] = pCedula;
+            string pCedula = "";
+
+            if (Session["EsAdmin"].ToString().Equals("1"))
+            {
+                pCedula = null;
+            }
+            else{
+                pCedula = Session["pCedula"].ToString();
+
+            }
+
 
             List<PagosViewModel> ListPagos = new List<PagosViewModel>();
 
@@ -81,6 +91,8 @@ namespace FisioterapiaUlatskawa.Controllers
                 pagosViewModel.cedula = pCedula;
 
                 List<SelectListItem> ListaTipoPagos = new List<SelectListItem>();
+                List<SelectListItem> ListaUsuarios = new List<SelectListItem>();
+
 
                 var result = context.ListarTipoPagos().ToList();
 
@@ -93,7 +105,19 @@ namespace FisioterapiaUlatskawa.Controllers
                     });
                 };
 
+                var us = context.ListarUsuarios().ToList();
+
+                foreach (var dato in us)
+                {
+                    ListaUsuarios.Add(new SelectListItem
+                    {
+                        Value = dato.cedula.ToString(),
+                        Text = dato.nombre
+                    });
+                };
+
                 pagosViewModel.ListaTipoPago = ListaTipoPagos;
+                pagosViewModel.ListaUsuarios = ListaUsuarios;
 
                 return View(pagosViewModel);
             }
@@ -189,8 +213,10 @@ namespace FisioterapiaUlatskawa.Controllers
 
 
                 List<SelectListItem> ListaTipoPagos = new List<SelectListItem>();
+                List<SelectListItem> ListaUsuarios = new List<SelectListItem>();
 
                 var result = context.ListarTipoPagos().ToList();
+                var usu = context.ListarUsuarios().ToList();
 
                 foreach (var dato in result)
                 {
@@ -201,7 +227,15 @@ namespace FisioterapiaUlatskawa.Controllers
                     });
                 };
 
-                
+                foreach (var dato in usu)
+                {
+                    ListaUsuarios.Add(new SelectListItem
+                    {
+                        Value = dato.cedula.ToString(),
+                        Text = dato.nombre
+                    });
+                };
+
 
                 PagosViewModel pagosVM = new PagosViewModel
                 {
@@ -212,7 +246,8 @@ namespace FisioterapiaUlatskawa.Controllers
                     cedula = resultado.cedula,
                     fechaPago = resultado.fechaPago,
                     notas = resultado.notas,
-                    ListaTipoPago = ListaTipoPagos
+                    ListaTipoPago = ListaTipoPagos,
+                    ListaUsuarios = ListaUsuarios
                 };
 
                 return View(pagosVM);

@@ -88,6 +88,12 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $('#precio').on('input', function (event) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        $('#cantidad').on('input', function (event) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
 
         var data = '@TempData["ErrorMessage"]';
 

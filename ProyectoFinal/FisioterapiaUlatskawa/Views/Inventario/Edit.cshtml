@@ -86,6 +86,34 @@
 }
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#precio').on('input', function (event) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        $('#cantidad').on('input', function (event) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        var data = '@TempData["ErrorMessage"]';
+
+        if (data === "") {
+            console.log("Empty string")
+        } else {
+            ErrorShowMessage(data);
+        }
+
+        var message = '@TempData["Message"]';
+
+        console.log(message);
+
+        if (message === "" || message == "") {
+            console.log("Empty string")
+        } else {
+            SuccessShowMessage(message);
+        }
+    });
+
+
+</script>

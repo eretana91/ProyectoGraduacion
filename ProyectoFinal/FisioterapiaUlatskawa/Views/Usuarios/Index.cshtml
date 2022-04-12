@@ -32,62 +32,72 @@
                             @Html.DisplayNameFor(model => model.telefono)
                         </th>
                         <th>
+<<<<<<< Updated upstream
                             
                             @Html.DisplayNameFor(model => model.email)
                         </th>
                        
+=======
+
+                            @Html.DisplayNameFor(model => model.email)
+                        </th>
+
+>>>>>>> Stashed changes
                         <th>Acción</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    
 
-                        @foreach (var item in Model)
-                       {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.apellidos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            
-            <td>
 
-                        
-                <a href="@Url.Action("Edit", "Usuarios", new {
-                            pIdUsuario =item.cedula.ToString()})"
-                   class="btn btn-danger btn-sm btn-full" title="Detalles">
-                    Detalles
-                </a>
-                |
-                <a href="@Url.Action("Index", "Pagos", new {
-                            pCedula =item.cedula.ToString()})"
-                   class="btn btn-success btn-sm btn-full" title="Pagos">
-                    Pagos
-                </a>
-                |
-                <a href="@Url.Action("Create", "Enfermedades", new {
-                            pCedula =item.cedula.ToString()})"
-                   class="btn btn-primary btn-sm btn-full" title="Enfermedad">
-                    Enfermedad
-                </a>
+                    @foreach (var item in Model)
+                    {
 
-            </td>
-        </tr>}
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.apellidos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.telefono)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.email)
+                            </td>
 
-                    </tbody>
-                </table>
-            </div>
+                            <td>
+
+
+                                <a href="@Url.Action("Edit", "Usuarios", new {
+                                                    pIdUsuario =item.cedula.ToString()})"
+                                   class="btn btn-danger btn-sm btn-full" title="Detalles">
+                                    Detalles
+                                </a>
+                                |
+                                <a href="@Url.Action("Index", "Pagos", new {
+                                                    pCedula =item.cedula.ToString()})"
+                                   class="btn btn-success btn-sm btn-full" title="Pagos">
+                                    Pagos
+                                </a>
+                                |
+                                <a href="@Url.Action("Create", "Enfermedades", new {
+                                                    pCedula =item.cedula.ToString()})"
+                                   class="btn btn-primary btn-sm btn-full" title="Enfermedad">
+                                    Enfermedad
+                                </a>
+
+                            </td>
+                       
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
 
 
@@ -95,6 +105,8 @@
     <script src="~/Tema/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="~/Tema/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="~/Tema/js/demo/datatables-demo.js"></script>
+
+
 
     @*<script type="text/javascript"> 
 

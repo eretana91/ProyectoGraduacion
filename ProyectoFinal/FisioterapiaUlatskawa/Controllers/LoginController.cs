@@ -60,6 +60,7 @@ namespace FisioterapiaUlatskawa.Controllers
                 {
                     Session["EsAdmin"] = resultado.idTipoUsuario;
                     Session["userID"] = resultado.cedula;
+                    Session["pCedula"] = resultado.cedula;
                     SessionHelper.AddUserToSession(1, resultado.cedula);
 
                     Session.Timeout = 180;

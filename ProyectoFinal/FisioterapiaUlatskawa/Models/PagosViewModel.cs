@@ -22,6 +22,10 @@ namespace FisioterapiaUlatskawa.Models
         public string nombrePago { get; set; }
         public List<SelectListItem> ListaTipoPago { get; set; }
 
+
+        [Display(Name = "Usuario")]
+        public List<SelectListItem> ListaUsuarios { get; set; }
+
         [Display(Name = "Monto")]
         [Required(ErrorMessage = "El campo de {0} es obligatorio.")]
         public Nullable<double> monto { get; set; }

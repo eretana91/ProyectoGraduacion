@@ -1,4 +1,8 @@
 ﻿using FisioterapiaUlatskawa.DataModel;
+<<<<<<< Updated upstream
+=======
+using FisioterapiaUlatskawa.Tags;
+>>>>>>> Stashed changes
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +11,11 @@ using System.Web.Mvc;
 
 namespace FisioterapiaUlatskawa.Controllers
 {
+<<<<<<< Updated upstream
+=======
+    [Authorize]
+    [SessionExpireFilter]
+>>>>>>> Stashed changes
     public class CitasController : Controller
     {
         private Context db = new Context();
@@ -28,10 +37,17 @@ namespace FisioterapiaUlatskawa.Controllers
             foreach (var item in data)
             {
                 var inicio = (DateTime)item.StartDate;
+<<<<<<< Updated upstream
                 var start = inicio.ToString("yyyy-MM-dd hh:mm:ss");
 
                 var final = (DateTime)item.EndDate;
                 var end = final.ToString("yyyy-MM-dd hh:mm:ss");
+=======
+                var start = inicio.ToString("yyyy-MM-dd HH:mm");
+
+                var final = (DateTime)item.EndDate;
+                var end = final.ToString("yyyy-MM-dd HH:mm");
+>>>>>>> Stashed changes
 
                 eventos.Add(new Models.WebAPIRecurringEvent
                 {
