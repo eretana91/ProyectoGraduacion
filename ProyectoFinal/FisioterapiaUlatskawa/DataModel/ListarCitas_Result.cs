@@ -11,14 +11,14 @@ namespace FisioterapiaUlatskawa.DataModel
 {
     using System;
     
-    public partial class ListarPagos_Result
+    public partial class ListarCitas_Result
     {
-        public int idPago { get; set; }
-        public Nullable<int> tipoPago { get; set; }
-        public Nullable<double> monto { get; set; }
-        public string banco { get; set; }
-        public string cedula { get; set; }
-        public Nullable<System.DateTime> fechaPago { get; set; }
-        public string notas { get; set; }
+        public int Id { get; set; }
+        public string Text { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
+        public Nullable<int> EventPID { get; set; }
+        public string RecType { get; set; }
+        public Nullable<double> EventLength { get; set; }
     }
 }

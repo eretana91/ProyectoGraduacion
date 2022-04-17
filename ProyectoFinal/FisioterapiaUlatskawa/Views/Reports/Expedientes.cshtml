@@ -1,11 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Reporte de Usuarios";
+    ViewBag.Title = "Reporte de Expedientes";
 }
 
 
 
 <div style="margin-bottom: 10px">
-    <h2>Usuarios</h2>
+    <h2>Expedientes</h2>
 </div>
 
 
@@ -32,7 +32,7 @@
 
         $(document).on('click', '#btnDescargar', function () {
 
-            var dirUrl = '@Url.Action("DownloadReportUsuarios", "Reports")';
+            var dirUrl = '@Url.Action("DownloadReportExpedientes", "Reports")';
 
             window.location.href = dirUrl;
 

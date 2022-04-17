@@ -61,34 +61,7 @@ namespace FisioterapiaUlatskawa.Controllers
                 return View(listado);
             }
 
-            //listado.Add(new BibliotecaViewModel {
-            //    url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-            //    descripcion = "Prueba",
-            //    titulo = "Relajación de músculos"
-            //});
-
-            //listado.Add(new BibliotecaViewModel
-            //{
-            //    url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-            //    descripcion = "Prueba",
-            //    titulo = "Relajación de músculos"
-            //});
-
-            //listado.Add(new BibliotecaViewModel
-            //{
-            //    url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-            //    descripcion = "Prueba",
-            //    titulo = "Relajación de músculos"
-            //});
-
-            //listado.Add(new BibliotecaViewModel
-            //{
-            //    url = "https://www.youtube.com/watch?v=5MQGiXgdGYk",
-            //    descripcion = "Prueba",
-            //    titulo = "Relajación de músculos"
-            //});
-
-            //return View(listado);
+            
         }
 
 

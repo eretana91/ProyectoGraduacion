@@ -1,132 +1,398 @@
-﻿using System;
+﻿using FisioterapiaUlatskawa.DataModel;
+using FisioterapiaUlatskawa.Models;
+using FisioterapiaUlatskawa.Tags;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using FisioterapiaUlatskawa.DataModel;
 
 namespace FisioterapiaUlatskawa.Controllers
 {
+    [Authorize]
+    [SessionExpireFilter]
     public class ExpedientesController : Controller
     {
-        private Context db = new Context();
+        private readonly Context context;
 
-        // GET: Expedientes
+        public ExpedientesController()
+        {
+            context = new Context();
+        }
+
+
+
+
+        /******************************************************/
+        // Metodos CRUD
+        #region GET: Pagos
         public ActionResult Index()
         {
-           var expedientes = db.Expedientes.Include(e => e.Usuario);
-            return View(expedientes.ToList());
-        }
+            string pCedula = "";
 
-        // GET: Expedientes/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
+            if (Session["EsAdmin"].ToString().Equals("1"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                pCedula = null;
             }
-            Expedientes expediente = db.Expedientes.Find(id);
-            if (expediente == null)
+            else
             {
-                return HttpNotFound();
+                pCedula = Session["pCedula"].ToString();
+
             }
-            return View(expediente);
-        }
 
-        // GET: Expedientes/Create
-        public ActionResult Create()
+
+            List<ExpedientesViewModel> ListExpedientes = new List<ExpedientesViewModel>();
+
+            try
+            {
+
+                var result = context.ListarMiExpediente(pCedula).ToList();
+
+                foreach (var dato in result)
+                {
+                    ListExpedientes.Add(new ExpedientesViewModel
+                    {
+                        idExpediente = dato.idExpediente,
+                        cedula = dato.cedula,
+                        fechaN = dato.fechaN,
+                        ciudad = dato.ciudad,
+                        canton = dato.canton,
+                        distrito = dato.distrito,
+                        diagnostico = dato.diagnostico,
+                        antecendente = dato.antecendente,
+                        mediUtilizados = dato.mediUtilizados,
+                        anteQuirurgicos = dato.anteQuirurgicos,
+                        fracturas = dato.fracturas,
+                        anteFamiliares = dato.anteFamiliares
+
+                    });
+                };
+
+                Session["MiCedula"] = pCedula;
+
+                return View(ListExpedientes);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    TempData["ErrorMessage"] = ex.InnerException.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = ex.Message;
+                }
+
+                return View(ListExpedientes);
+            }
+        }
+        #endregion
+
+        #region GET: Usuarios/Create
+        public ActionResult Create(string pCedula)
         {
-            ViewBag.cedula = new SelectList(db.Usuario, "cedula", "nombre");
-            return View();
-        }
+            ExpedientesViewModel expedientesViewModel = new ExpedientesViewModel();
+            try
+            {
+                Session["pCedula"] = pCedula;
 
-        // POST: Expedientes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+                expedientesViewModel.cedula = pCedula;
+
+                //List<SelectListItem> ListaTipoPagos = new List<SelectListItem>();
+                List<SelectListItem> ListaUsuarios = new List<SelectListItem>();
+
+
+                //var result = context.ListarTipoPagos().ToList();
+
+                //foreach (var dato in result)
+                //{
+                //    ListaTipoPagos.Add(new SelectListItem
+                //    {
+                //        Value = dato.tipoPago.ToString(),
+                //        Text = dato.nombrePago
+                //    });
+                //};
+
+                var us = context.ListarUsuarios().ToList();
+
+                foreach (var dato in us)
+                {
+                    ListaUsuarios.Add(new SelectListItem
+                    {
+                        Value = dato.cedula.ToString(),
+                        Text = dato.nombre
+                    });
+                };
+
+                //pagosViewModel.ListaTipoPago = ListaTipoPagos;
+                expedientesViewModel.ListaUsuarios = ListaUsuarios;
+
+                return View(expedientesViewModel);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    TempData["ErrorMessage"] = ex.InnerException.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = ex.Message;
+                }
+            }
+
+            return RedirectToAction("Index", "Expedientes");
+        }
+        #endregion
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "cedula,fechaN,ciudad,canton,distrito,diagnostico,antecedentes,mediUtilizados,anteQuirurgicos,fracturas,anteFamiliares")] Expedientes expediente)
+        public ActionResult Create([Bind(Include = "cedula,fechaN,ciudad,canton,distrito,diagnostico,antecendente,mediUtilizados,anteQuirurgicos,fracturas,anteFamiliares ")] ExpedientesViewModel expedientesVM)
         {
             if (ModelState.IsValid)
             {
-                db.Expedientes.Add(expediente);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+
+                    var resulta = context.InsertarExpediente(
+                      expedientesVM.cedula,
+                      expedientesVM.fechaN,
+                      expedientesVM.ciudad,
+                      expedientesVM.canton,
+                      expedientesVM.distrito,
+                      expedientesVM.diagnostico,
+                      expedientesVM.antecendente,
+                      expedientesVM.mediUtilizados,
+                      expedientesVM.anteQuirurgicos,
+                      expedientesVM.fracturas,
+                      expedientesVM.anteFamiliares
+                       ).FirstOrDefault();
+
+
+                    TempData["Message"] = "Expediente Insertado correctamente";
+
+                    return RedirectToAction("Index", "Expedientes", new { pCedula = expedientesVM.cedula });
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        TempData["ErrorMessage"] = ex.InnerException.Message;
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = ex.Message;
+                    }
+                }
+            }
+            else
+            {
+
+
+                var error = ModelState.Select(x => x.Value.Errors)
+                           .Where(y => y.Count > 0)
+                           .FirstOrDefault();
+
+                TempData["ErrorMessage"] = error[0].ErrorMessage;
+
+
             }
 
-            ViewBag.cedula = new SelectList(db.Usuario, "cedula", "nombre", expediente.cedula);
-            return View(expediente);
+            //List<SelectListItem> ListaTipoPagos = new List<SelectListItem>();
+
+            //var result = context.ListarTipoPagos().ToList();
+
+            //foreach (var dato in result)
+            //{
+            //    ListaTipoPagos.Add(new SelectListItem
+            //    {
+            //        Value = dato.tipoPago.ToString(),
+            //        Text = dato.nombrePago
+            //    });
+            //};
+
+            ////expedientesVM.ListaTipoPago = ListaTipoPagos;
+
+            return View(expedientesVM);
         }
 
-        // GET: Expedientes/Edit/5
-        public ActionResult Edit(string id)
+
+        #region GET: Usuarios/Edit
+        public ActionResult Edit(int pIdExpediente)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                var resultado = context.ConsultarExpedientes(pIdExpediente).FirstOrDefault();
+
+
+                //List<SelectListItem> ListaTipoPagos = new List<SelectListItem>();
+                List<SelectListItem> ListaUsuarios = new List<SelectListItem>();
+
+                //var result = context.ListarTipoPagos().ToList();
+                var usu = context.ListarUsuarios().ToList();
+
+                //foreach (var dato in result)
+                //{
+                //    ListaTipoPagos.Add(new SelectListItem
+                //    {
+                //        Value = dato.tipoPago.ToString(),
+                //        Text = dato.nombrePago
+                //    });
+                //};
+
+                foreach (var dato in usu)
+                {
+                    ListaUsuarios.Add(new SelectListItem
+                    {
+                        Value = dato.cedula.ToString(),
+                        Text = dato.nombre
+                    });
+                };
+
+
+                ExpedientesViewModel expedientesVM = new ExpedientesViewModel
+                {
+                    idExpediente = resultado.idExpediente,
+                    cedula = resultado.cedula,
+                    fechaN = resultado.fechaN,
+                    ciudad = resultado.ciudad,
+                    canton = resultado.canton,
+                    distrito = resultado.distrito,
+                    diagnostico = resultado.diagnostico,
+                    antecendente = resultado.antecendente,
+                    mediUtilizados = resultado.mediUtilizados,
+                    anteQuirurgicos = resultado.anteQuirurgicos,
+                    fracturas = resultado.fracturas,
+                    anteFamiliares = resultado.anteFamiliares,
+                    ListaUsuarios = ListaUsuarios
+                };
+
+                return View(expedientesVM);
             }
-            Expedientes expediente = db.Expedientes.Find(id);
-            if (expediente == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                if (ex.InnerException != null)
+                {
+                    TempData["ErrorMessage"] = ex.InnerException.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = ex.Message;
+                }
+
+                return RedirectToAction("Index", "Expedientes", new { pCedula = Session["pCedula"] as string });
             }
-            ViewBag.cedula = new SelectList(db.Usuario, "cedula", "nombre", expediente.cedula);
-            return View(expediente);
         }
 
-        // POST: Expedientes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Clases/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "cedula,fechaN,ciudad,canton,distrito,diagnostico,antecedentes,mediUtilizados,anteQuirurgicos,fracturas,anteFamiliares")] Expedientes expediente)
+        public ActionResult Edit([Bind(Include = "idExpediente, cedula,fechaN,ciudad,canton,distrito,diagnostico,antecendente,mediUtilizados,anteQuirurgicos,fracturas,anteFamiliares ")] ExpedientesViewModel expedientesVM)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(expediente).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.cedula = new SelectList(db.Usuario, "cedula", "nombre", expediente.cedula);
-            return View(expediente);
-        }
+                try
+                {
+                    var results = context.ActualizarExpedientes(
+                        expedientesVM.idExpediente,
+                        expedientesVM.cedula,
+                        expedientesVM.fechaN,
+                        expedientesVM.ciudad,
+                        expedientesVM.canton,
+                        expedientesVM.distrito,
+                        expedientesVM.diagnostico,
+                        expedientesVM.antecendente,
+                        expedientesVM.mediUtilizados,
+                        expedientesVM.anteQuirurgicos,
+                        expedientesVM.fracturas,
+                        expedientesVM.anteFamiliares
+                        ).FirstOrDefault();
 
-         //GET: Expedientes/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Expedientes expediente = db.Expedientes.Find(id);
-            if (expediente == null)
-            {
-                return HttpNotFound();
-            }
-            return View(expediente);
-        }
+                    TempData["Message"] = "Expediente modificado correctamente";
 
-        // POST: Expedientes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Expedientes expediente = db.Expedientes.Find(id);
-            db.Expedientes.Remove(expediente);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
+                    return RedirectToAction("Index", "Expedientes", new { pCedula = Session["pCedula"] as string });
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        TempData["ErrorMessage"] = ex.InnerException.Message;
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = ex.Message;
+                    }
+                }
             }
-            base.Dispose(disposing);
+            else
+            {
+                var error = ModelState.Select(x => x.Value.Errors)
+                           .Where(y => y.Count > 0)
+                           .FirstOrDefault();
+
+                TempData["ErrorMessage"] = error[0].ErrorMessage;
+            }
+
+            //List<SelectListItem> ListaTipoPagos = new List<SelectListItem>();
+            //var result = context.ListarTipoPagos().ToList();
+            //foreach (var dato in result)
+            //{
+            //    ListaTipoPagos.Add(new SelectListItem
+            //    {
+            //        Value = dato.tipoPago.ToString(),
+            //        Text = dato.nombrePago
+            //    });
+            //};
+            //expedientesVM.ListaTipoPago = ListaTipoPagos;
+
+            return View(expedientesVM);
+        }
+        #endregion
+
+
+
+        #region GET: Clases/Details
+        public ActionResult Details(int pIdExpediente)
+        {
+            try
+            {
+
+                var resultado = context.ConsultarExpedientes(pIdExpediente).FirstOrDefault();
+
+                ExpedientesViewModel expedientesVM = new ExpedientesViewModel
+                {
+                    idExpediente = resultado.idExpediente,
+                    cedula = resultado.cedula,
+                    fechaN = resultado.fechaN,
+                    ciudad = resultado.ciudad,
+                    canton = resultado.canton,
+                    distrito = resultado.distrito,
+                    diagnostico = resultado.diagnostico,
+                    antecendente = resultado.antecendente,
+                    mediUtilizados = resultado.mediUtilizados,
+                    anteQuirurgicos = resultado.anteQuirurgicos,
+                    fracturas = resultado.fracturas,
+                    anteFamiliares = resultado.anteFamiliares
+                };
+
+                return View(expedientesVM);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    TempData["ErrorMessage"] = ex.InnerException.Message;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = ex.Message;
+                }
+
+                return RedirectToAction("Index", "Expedientes", new { pCedula = Session["pCedula"] as string });
+            }
+            #endregion
+
         }
     }
 }

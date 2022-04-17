@@ -54,13 +54,13 @@
 
             <!-- Nav Item - Dashboard comentado porque no tendremos Dashboard -->
             <!--
-            <li class="nav-item active">
-            <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
-            </a>
-            </li>
-            -->
+    <li class="nav-item active">
+    <a class="nav-link" href="index.html">
+    <i class="fas fa-fw fa-tachometer-alt"></i>
+    <span>Dashboard</span>
+    </a>
+    </li>
+    -->
             <!-- Divider -->
             <!-- Nav Item - Pages Collapse Menu -->
 
@@ -164,27 +164,28 @@
             </li>
             <!-- Divider -->
             <!-- Nav Item - Pages Collapse Menu -->
-            @if (Session["EsAdmin"].ToString().Equals("1"))
-            {
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpedientes"
-                       aria-expanded="true" aria-controls="collapseExpedientes">
-                        <i class="fa fa-folder"></i>
-                        <span>Expedientes</span>
-                    </a>
-                    <div id="collapseExpedientes" class="collapse" aria-labelledby="headingExpedientes" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="@Url.Action(controllerName: "Expedientes",actionName: "Create" )" style="margin-bottom:12px;">
-                                <i class="fa fa-plus-square" style="padding-right:5px"></i>Crear
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpedientes"
+                   aria-expanded="true" aria-controls="collapseExpedientes">
+                    <i class="fa fa-book-medical"></i>
+                    <span>Expedientes</span>
+                </a>
+                <div id="collapseExpedientes" class="collapse" aria-labelledby="headingExpedientes" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Expedientes:</h6>
+                        @if (Session["EsAdmin"].ToString().Equals("1"))
+                        {
+                            <a class="collapse-item" href="@Url.Action(controllerName: "Expedientes",actionName: "create" )" style="margin-bottom:12px;">
+                                <i class="fa fa-book-medical" style="padding-right:5px"></i>Crear
                             </a>
-                            <a class="collapse-item" href="@Url.Action(controllerName: "Expedientes",actionName: "Index" )" style="margin-bottom:12px;">
-                                <i class="fa fa-th-list" style="padding-right:5px"></i>Detalles
-                            </a>
-                        </div>
-                    </div>
+                        }
 
-                </li>
-            }
+                        <a class="collapse-item" href="@Url.Action(controllerName: "Expedientes",actionName: "index" )" style="margin-bottom:12px;">
+                            <i class="fa fa-th-list" style="padding-right:5px"></i>Detalles
+                        </a>
+                    </div>
+                </div>
+            </li>
 
 
             @if (Session["EsAdmin"].ToString().Equals("1"))
@@ -192,13 +193,13 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCitas"
                        aria-expanded="true" aria-controls="collapseExpedientes">
-                        <i class="fa fa-folder"></i>
+                        <i class="fa fa-calendar-check"></i>
                         <span>Citas</span>
                     </a>
                     <div id="collapseCitas" class="collapse" aria-labelledby="headingExpedientes" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="@Url.Action(controllerName: "Citas",actionName: "Index" )" style="margin-bottom:12px;">
-                                <i class="fa fa-plus-square" style="padding-right:5px"></i>Crear
+                                <i class="fa fa-calendar-plus" style="padding-right:5px"></i>Crear
                             </a>
 
                         </div>
@@ -212,19 +213,22 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReportes"
                        aria-expanded="true" aria-controls="collapseExpedientes">
-                        <i class="fa fa-folder"></i>
+                        <i class="fa fa-file-excel"></i>
                         <span>Reportes</span>
                     </a>
                     <div id="collapseReportes" class="collapse" aria-labelledby="headingExpedientes" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="@Url.Action(controllerName: "Reports",actionName: "Pagos" )" style="margin-bottom:12px;">
-                                <i class="fa fa-plus-square" style="padding-right:5px"></i>Reporte Pagos
+                                <i class="fa fa-file-download" style="padding-right:5px"></i>Reporte Pagos
                             </a>
 
                             <a class="collapse-item" href="@Url.Action(controllerName: "Reports",actionName: "Usuarios" )" style="margin-bottom:12px;">
-                                <i class="fa fa-plus-square" style="padding-right:5px"></i>Reporte Usuarios
+                                <i class="fa fa-file-download" style="padding-right:5px"></i>Reporte Usuarios
                             </a>
 
+                            @*<a class="collapse-item" href="@Url.Action(controllerName: "Reports",actionName: "Expedientes" )" style="margin-bottom:12px;">
+                            <i class="fa fa-plus-square" style="padding-right:5px"></i>Reporte Expedientes
+                        </a>*@
                         </div>
                     </div>
 

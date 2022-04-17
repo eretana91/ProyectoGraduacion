@@ -48,7 +48,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportePagos</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Andrey\Desktop\ProyectoGraduacion\ProyectoFinal\FisioterapiaUlatskawa\DataSets\ReportePagos.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Oscar\Desktop\ProyectoGraduacion\ProyectoFinal\FisioterapiaUlatskawa\DataSets\ReportePagos.xsd</rd:SchemaPath>
         <rd:TableName>ReportePagos</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />

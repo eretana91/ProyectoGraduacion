@@ -1,32 +1,116 @@
 ﻿@model IEnumerable<FisioterapiaUlatskawa.Models.ExpedientesViewModel>
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ciudad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.canton)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.distrito)
-        </th>
-        <th>
+
+
+
+<div style="margin-bottom: 10px">
+    <h2>Expedientes</h2>
+</div>
+
+
+<div style="margin-top: 10px">
+
+    @if (Session["EsAdmin"].ToString().Equals("1"))
+    {
+        <a href="@Url.Action("Create", "Expedientes", new {pCedula = Session["MiCedula"] as string })" class="btn btn-primary btn-full  mt-sm-3">
+            <i class="fa fa-plus-circle"></i> Nuevo
+        </a>
+    }
+
+
+</div>
+<hr />
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.cedula)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.fechaN)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ciudad)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.canton)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.distrito)
+                        </th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.cedula)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fechaN)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ciudad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.canton)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.distrito)
+                            </td>
+                            <td>
+                                @if (Session["EsAdmin"].ToString().Equals("1"))
+                                {
+                                    <a href="@Url.Action("Edit", "Expedientes", new {
+                            pIdExpediente = item.idExpediente })"
+                                       class="btn btn-info btn-sm btn-full" title="Editar">
+                                        Editar
+                                    </a>
+
+                                }
+                                |
+                                <a href="@Url.Action("Details", "Expedientes", new {
+                            pIdExpediente = item.idExpediente})"
+                                   class="btn btn-danger btn-sm btn-full" title="Detalles">
+                                    Detalles
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Tema/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Tema/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/Tema/js/demo/datatables-demo.js"></script>
+
+
+
+<!--<table class="table">
+    <tr>-->
+@*<th>
             @Html.DisplayNameFor(model => model.diagnostico)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.antecedentes)
+            @Html.DisplayNameFor(model => model.antecendente)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.mediUtilizados)
@@ -40,54 +124,37 @@
         <th>
             @Html.DisplayNameFor(model => model.anteFamiliares)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cedula)
-        </th>
-        <th></th>
+    <!--<th>Acción</th>
     </tr>
 
-    @foreach (var item in Model)
+    <!--@foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ciudad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.canton)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.distrito)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.diagnostico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.antecedentes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.mediUtilizados)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.anteQuirurgicos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fracturas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.anteFamiliares)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cedula)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.cedula }) |
-                @Html.ActionLink("Details", "Details", new { id = item.cedula }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.cedula })
-            </td>
-        </tr>
-    }
+        <tr>-->-->
+    <!--<td>-->
+            @Html.DisplayFor(modelItem => item.diagnostico)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.antecendente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mediUtilizados)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.anteQuirurgicos)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fracturas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.anteFamiliares)
+        </td>
+    <!--<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.idExpediente }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.idExpediente }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.idExpediente })
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>-->
+*@

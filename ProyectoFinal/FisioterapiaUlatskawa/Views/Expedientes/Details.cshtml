@@ -4,12 +4,24 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalle Expediente</h2>
+
+<a href="@Url.Action("Index", "Expedientes")" class="btn btn-danger btn-full ">
+    <i class="fa fa-arrow-alt-circle-left"></i> Atrás
+</a>
 
 <div>
-    <h4>Expediente</h4>
+
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cedula)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.fechaN)
         </dt>
@@ -51,11 +63,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.antecedentes)
+            @Html.DisplayNameFor(model => model.antecendente)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.antecedentes)
+            @Html.DisplayFor(model => model.antecendente)
         </dd>
 
         <dt>
@@ -90,17 +102,6 @@
             @Html.DisplayFor(model => model.anteFamiliares)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.cedula)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cedula)
-        </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.cedula }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

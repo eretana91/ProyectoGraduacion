@@ -162,7 +162,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AntecedentesController.cs" />
     <Compile Include="Controllers\BibliotecaController.cs" />
     <Compile Include="Controllers\CitasController.cs" />
     <Compile Include="Controllers\EnfermedadesController.cs" />
@@ -174,19 +173,16 @@
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SchedulerRecurringController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
-    <Compile Include="DataModel\Antecedentes.cs">
-      <DependentUpon>Modelo.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\Biblioteca.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\ConsultaProducto_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\ConsultarAntecedente_Result.cs">
+    <Compile Include="DataModel\ConsultarEnfermedad_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\ConsultarEnfermedad_Result.cs">
+    <Compile Include="DataModel\ConsultarExpedientes_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\ConsultarPagos_Result.cs">
@@ -196,6 +192,9 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\ConsultaVideo_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\database_firewall_rules.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Enfermedades.cs">
@@ -210,10 +209,19 @@
     <Compile Include="DataModel\Inventarios.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\ListarAntecedentes_Result.cs">
+    <Compile Include="DataModel\ipv6_database_firewall_rules.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\ListarCitas_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\ListarEnfermedades_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\ListarExpedientes_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\ListarMiExpediente_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\ListarMisPagos_Result.cs">
@@ -295,7 +303,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AntecedentesViewModel.cs" />
     <Compile Include="Models\BibliotecaViewModel.cs" />
     <Compile Include="Models\EnfermedadesViewModel.cs" />
     <Compile Include="Models\ExpedientesViewModel.cs" />
@@ -381,6 +388,7 @@
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
     <None Include="Properties\PublishProfiles\FisioterapiaUlatskawa20220317221029.pubxml" />
+    <EmbeddedResource Include="Reports\ReporteExpedientes.rdlc" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2165,8 +2173,6 @@
     <Content Include="Views\Pagos\Details.cshtml" />
     <Content Include="Views\Enfermedades\Index.cshtml" />
     <Content Include="Views\Enfermedades\Create.cshtml" />
-    <Content Include="Views\Antecedentes\Index.cshtml" />
-    <Content Include="Views\Antecedentes\Create.cshtml" />
     <Content Include="Views\Inventario\Index.cshtml" />
     <Content Include="Views\Inventario\Create.cshtml" />
     <Content Include="Views\Inventario\Edit.cshtml" />
@@ -2174,11 +2180,6 @@
     <Content Include="Views\Biblioteca\Index.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Expedientes\Create.cshtml" />
-    <Content Include="Views\Expedientes\Delete.cshtml" />
-    <Content Include="Views\Expedientes\Details.cshtml" />
-    <Content Include="Views\Expedientes\Edit.cshtml" />
-    <Content Include="Views\Expedientes\Index.cshtml" />
     <Content Include="Views\Biblioteca\Create.cshtml" />
     <Content Include="Views\Biblioteca\Edit.cshtml" />
     <Content Include="Views\Biblioteca\Delete.cshtml" />
@@ -2357,6 +2358,11 @@
     <Content Include="Tema\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Tema\vendor\jquery\jquery.min.map" />
     <Content Include="Tema\vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Views\Expedientes\Index.cshtml" />
+    <Content Include="Views\Expedientes\Create.cshtml" />
+    <Content Include="Views\Expedientes\Edit.cshtml" />
+    <Content Include="Views\Expedientes\Details.cshtml" />
+    <Content Include="Views\Reports\Expedientes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

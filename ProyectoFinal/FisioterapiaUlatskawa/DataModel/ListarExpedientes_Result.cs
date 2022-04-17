@@ -10,9 +10,8 @@
 namespace FisioterapiaUlatskawa.DataModel
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Expedientes
+    public partial class ListarExpedientes_Result
     {
         public int idExpediente { get; set; }
         public string cedula { get; set; }
@@ -26,7 +25,5 @@ namespace FisioterapiaUlatskawa.DataModel
         public string anteQuirurgicos { get; set; }
         public string fracturas { get; set; }
         public string anteFamiliares { get; set; }
-    
-        public virtual Usuario Usuario { get; set; }
     }
 }

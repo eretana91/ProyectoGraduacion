@@ -4,23 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="79b52351f46e4de2b8147d840bcca501" Name="Diagram1">
-        <EntityTypeShape EntityType="UlatskawaModel.Antecedentes" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.Biblioteca" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.Enfermedades" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.Events" Width="1.5" PointX="7.75" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.Expedientes" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.Inventarios" Width="1.5" PointX="11" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.Pagos" Width="1.5" PointX="8.25" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.SchedulerRecurringEvent" Width="1.5" PointX="9.75" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+      <Diagram DiagramId="6a7a2670b25a44cea79ddeef30e87b5a" Name="Diagram1">
+        <EntityTypeShape EntityType="UlatskawaModel.Biblioteca" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Enfermedades" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Events" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Expedientes" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Inventarios" Width="1.5" PointX="11" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Pagos" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.SchedulerRecurringEvent" Width="1.5" PointX="7.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="UlatskawaModel.TipoPago" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.TipoProducto" Width="1.5" PointX="8.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.TipoUsuario" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="UlatskawaModel.Usuario" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
-        <AssociationConnector Association="UlatskawaModel.FK__Anteceden__cedul__37A5467C" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="UlatskawaModel.TipoProducto" Width="1.5" PointX="8.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.TipoUsuario" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.Usuario" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.database_firewall_rules" Width="1.5" PointX="2.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UlatskawaModel.ipv6_database_firewall_rules" Width="1.5" PointX="10.75" PointY="5.25" IsExpanded="true" />
         <AssociationConnector Association="UlatskawaModel.FK__Enfermeda__cedul__38996AB5" ManuallyRouted="false" />
-        <AssociationConnector Association="UlatskawaModel.FK_Usuarios_Expedientes" ManuallyRouted="false" />
+        <AssociationConnector Association="UlatskawaModel.FK__Expedient__cedul__671F4F74" ManuallyRouted="false" />
         <AssociationConnector Association="UlatskawaModel.FK__Inventari__tipoP__398D8EEE" ManuallyRouted="false" />
         <AssociationConnector Association="UlatskawaModel.FK__Pagos__cedula__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="UlatskawaModel.FK__Pagos__tipoPago__3B75D760" ManuallyRouted="false" />
